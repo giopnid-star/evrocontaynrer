@@ -1,0 +1,306 @@
+/* Переопределение стилей для обеих тем */
+
+/* СВЕТЛАЯ ТЕМА (по умолчанию в переменных) */
+:root {
+    /* Головка, навигация */
+    --header-text: #0f172a;
+    --header-hover: #640464;
+
+    /* Основной текст */
+    --heading-color: #0f172a;
+    --text-color: #475569;
+    --muted-text: #64748b;
+
+    /* Фоны */
+    --card-bg: #f5f7fa;
+    --tab-border: rgba(0, 0, 0, 0.1);
+
+    /* Разные элементы */
+    --gallery-bg: #f9fafb;
+    --input-bg: #ffffff;
+    --input-border: #ddd;
+}
+
+body.dark-mode {
+    --header-text: #ffffff;
+    --heading-color: #ffffff;
+    --text-color: #e0e0e0;
+    --muted-text: #b0b0b0;
+    --card-bg: #333;
+    --tab-border: rgba(232, 214, 97, 0.2);
+    --gallery-bg: #1a1a1a;
+    --input-bg: #252525;
+    --input-border: #444;
+    /* Цвета для sidebar в темной теме */
+    --sidebar-bg: #252525;
+    --sidebar-link-bg: #333;
+}
+
+/* ===== OVERRIDES ===== */
+
+/* Logo, header nav */
+.logo {
+    color: var(--text-primary) !important;
+    border-bottom-color: var(--border-color) !important;
+}
+
+.nav-btn {
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    background: var(--section-bg) !important;
+}
+
+.nav-btn:hover {
+    color: var(--bg-primary) !important;
+}
+
+.dropdown-menu a {
+    color: var(--text-primary) !important;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--bg-secondary) !important;
+}
+
+.sidebar a {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+.sidebar a:hover {
+    background: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+.sidebar a .label {
+    color: var(--text-primary) !important;
+}
+
+/* Основной контент */
+main {
+    background: var(--bg-primary) !important;
+    color: var(--text-secondary) !important;
+}
+
+section {
+    background: var(--section-bg) !important;
+    color: var(--text-secondary) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary) !important;
+}
+
+.gallery-item h3 {
+    color: var(--text-primary) !important;
+}
+
+/* Tabs */
+.tab {
+    color: var(--text-secondary) !important;
+    border-color: var(--tab-border) !important;
+    background: transparent !important;
+}
+
+.tab:hover {
+    color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    background: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+.tab.active {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+    box-shadow: 0 0 15px rgba(232, 214, 97, 0.6) !important;
+}
+
+/* Search input */
+.search-bar input,
+.search-bar select {
+    background: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--input-border) !important;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-light) !important;
+}
+
+/* Gallery */
+.gallery-item {
+    background: var(--card-bg) !important;
+}
+
+.gallery-item:hover {
+    box-shadow: 0 8px 24px rgba(232, 214, 97, 0.2) !important;
+}
+
+/* Проекты */
+.project-card {
+    background: var(--card-bg) !important;
+}
+
+.project-card h4 {
+    color: var(--text-primary) !important;
+}
+
+.project-card p {
+    color: var(--text-color) !important;
+}
+
+/* Footer */
+.footer {
+    background: var(--section-bg) !important;
+    color: var(--text-secondary) !important;
+    border-top: var(--border-color) 1px solid !important;
+}
+
+.footer-content h3 {
+    color: var(--accent-color) !important;
+}
+
+.footer-section li {
+    color: var(--text-secondary) !important;
+}
+
+.footer-section li:hover {
+    color: var(--accent-color) !important;
+}
+
+/* Кнопки */
+.hero-cta,
+.footer-btn,
+.pagination-btn,
+.contact-form button {
+    background: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+.hero-cta:hover,
+.footer-btn:hover,
+.pagination-btn:hover,
+.contact-form button:hover {
+    background: var(--accent-dark) !important;
+}
+
+.hero-btn {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Форма */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    background: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--input-border) !important;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+textarea::placeholder {
+    color: var(--text-light) !important;
+}
+
+/* Why-Us слайды */
+.why-slide {
+    background: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+.why-slide h3 {
+    color: var(--text-primary) !important;
+}
+
+.why-slide p {
+    color: var(--text-color) !important;
+}
+
+/* Contact info cards */
+.info-cell {
+    background: var(--section-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-secondary) !important;
+}
+
+.info-cell:hover {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Category buttons */
+.category-btn {
+    background: var(--section-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+/* Containers section */
+.containers-section {
+    background: var(--section-bg) !important;
+    border-left-color: var(--accent-color) !important;
+}
+
+.containers-section h3 {
+    color: var(--accent-color) !important;
+}
+
+/* Карточки услуг */
+.service-card {
+    background: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.service-card-header h3 {
+    color: var(--text-primary) !important;
+}
+
+.service-card-content p {
+    color: var(--text-secondary) !important;
+}
+
+.service-features li {
+    color: var(--text-secondary) !important;
+}
+
+.service-card:hover .service-features li {
+    color: var(--text-primary) !important;
+}
+
+.service-btn {
+    background: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}
+
+.service-btn:hover {
+    background: var(--accent-dark) !important;
+}
+
+.service-icon {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+.service-card:hover .service-icon {
+    background: var(--accent-color) !important;
+    color: var(--bg-primary) !important;
+}

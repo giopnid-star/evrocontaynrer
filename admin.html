@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Админ — Заявки</title>
+  <link rel="stylesheet" href="static/styles/style.css">
+  <style>
+    .admin-controls{display:flex;gap:8px;align-items:center;margin:12px 0;flex-wrap:wrap}
+    .admin-table{width:100%;border-collapse:collapse}
+    .admin-table th,.admin-table td{border:1px solid #e5e7eb;padding:8px;text-align:left}
+    .admin-actions{display:flex;gap:8px}
+    .small{padding:6px 10px;font-size:14px}
+    
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      main {
+        padding: 12px !important;
+      }
+      
+      .admin-controls {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .admin-controls input,
+      .admin-controls select,
+      .admin-controls button {
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+      
+      .admin-table {
+        font-size: 12px;
+      }
+      
+      .admin-table th,
+      .admin-table td {
+        padding: 6px 4px;
+      }
+      
+      .small {
+        padding: 8px 10px;
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      main {
+        padding: 10px !important;
+      }
+      
+      h1 {
+        font-size: 1.3rem;
+      }
+      
+      .admin-table {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main style="padding:20px;max-width:1100px;margin:0 auto">
+    <h1>Заявки с сайта</h1>
+    <div class="admin-controls">
+      <input id="q" placeholder="Поиск по имени, email, сообщение" style="flex:1;padding:8px">
+      <select id="sent">
+        <option value="">Все</option>
+        <option value="1">Отправленные</option>
+        <option value="0">Не отправленные</option>
+      </select>
+      <button id="searchBtn" class="small">Поиск</button>
+      <button id="exportBtn" class="small">Экспорт CSV</button>
+      <button id="backupBtn" class="small">Создать бэкап DB</button>
+    </div>
+
+    <table class="admin-table" id="contactsTable">
+      <thead>
+        <tr><th>ID</th><th>Имя</th><th>Email</th><th>Сообщение</th><th>Создано</th><th>Sent</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div style="margin-top:12px">
+      <button id="prev" class="small">◀ Prev</button>
+      <span id="pageInfo">1</span>
+      <button id="next" class="small">Next ▶</button>
+    </div>
+  </main>
+
+  <script src="static/admin.js" defer></script>
+</body>
+</html>
