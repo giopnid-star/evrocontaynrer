@@ -3226,3 +3226,26 @@ h2::after {
   padding:2px 6px;
 }
 .cookie-settings-inline:hover{ color:#fff }
+
+/* Adaptive user profile name */
+#profile-name {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  #profile-name {
+    max-width: 80px;
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  #profile-name {
+    max-width: 60px;
+    font-size: 0.7rem !important;
+  }
+}

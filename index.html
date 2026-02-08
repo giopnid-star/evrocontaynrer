@@ -57,8 +57,8 @@
           <a href="register.html" class="auth-split" style="padding: 6px 12px; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block;">📝 Регистрация</a>
         </div>
         <div id="user-profile" style="display: none; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg-secondary); border-radius: 6px;">
-          <div style="text-align: right; font-size: 0.8rem;">
-            <div style="font-weight: 600; color: var(--text-primary);" id="profile-name"></div>
+          <div style="text-align: right; font-size: 0.8rem; min-width: 0;">
+            <div style="font-weight: 600; color: var(--text-primary); max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="profile-name" title="Профиль"></div>
             <div style="color: var(--text-secondary);">Профиль</div>
           </div>
           <button id="profile-logout" style="padding: 4px 8px; background: transparent; border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: all 0.2s ease;">Выход</button>
@@ -789,7 +789,10 @@
           const user = JSON.parse(userStr);
           authControls.style.display = 'none';
           userProfile.style.display = 'flex';
-          document.getElementById('profile-name').textContent = user.name || user.email;
+          const profileName = document.getElementById('profile-name');
+          const displayName = user.name || user.email;
+          profileName.textContent = displayName;
+          profileName.setAttribute('title', displayName);
         } catch (e) {
           console.error('Error parsing user data:', e);
           authControls.style.display = 'flex';
