@@ -25,7 +25,17 @@
             document.documentElement.lang = (lang === 'kz') ? 'kk' : 'ru';
         })();
     </script>
-    <script>
+    <style>
+      /* Базовые тёмные стили для предотвращения белой вспышки */
+      html.dark-mode {
+        background-color: #1a1a1a;
+        color: #e5e5e5;
+      }
+      html.dark-mode body {
+        background-color: #1a1a1a;
+        color: #e5e5e5;
+      }
+    </style>
         document.documentElement.style.display = '';
     </script>
 </head>

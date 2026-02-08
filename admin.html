@@ -15,6 +15,21 @@
       if (theme === 'dark') document.documentElement.classList.add('dark-mode');
     })();
   </script>
+  <style>
+    /* Базовые тёмные стили для предотвращения белой вспышки */
+    html.dark-mode {
+      background-color: #1a1a1a;
+      color: #e5e5e5;
+    }
+    html.dark-mode body {
+      background-color: #1a1a1a;
+      color: #e5e5e5;
+    }
+  </style>
+  <script>
+    document.documentElement.style.display = '';
+  </script>
+  <style>
     main {
       max-width: 1200px;
       margin: 0 auto;
