@@ -2438,18 +2438,19 @@ h2::after {
   }
 
   .header-nav .nav-btn {
-    width: 100%;
-    text-align: left;
-    padding: 10px 12px;
+    width: auto !important;
+    text-align: center;
+    padding: 10px 22px !important;
     background: transparent;
     border: none;
     font-size: 0.95rem;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   .header-nav .nav-btn:hover {
-    transform: none;
+    transform: none !important;
     background: rgba(0,0,0,0.03);
+    box-shadow: none !important;
   }
 
   /* Show dropdowns inline under each nav item */
