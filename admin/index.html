@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Админ — Управление</title>
+  <link rel="stylesheet" href="/static/styles/style.css">
+  <script>
+    document.documentElement.style.display = 'none';
+  </script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'dark';
+      if (theme === 'dark') document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+  <style>
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .admin-header h1 {
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .user-info strong {
+      color: var(--accent-color);
+    }
+
+    .logout-btn {
+      padding: 8px 16px;
+      background: #dc2626;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+      position: relative;
+      top: 2px;
+    }
+
+    .tab:hover {
+      color: var(--text-primary);
+    }
+
+    .tab.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .admin-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .admin-controls input,
+    .admin-controls select {
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .admin-controls input:focus,
+    .admin-controls select:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(232, 214, 97, 0.1);
+    }
+
+    .admin-controls input {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      background: var(--accent-color);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(232, 214, 97, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-tertiary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px var(--border-color);
+    }
+
+    .admin-table thead {
+      background: var(--bg-secondary);
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .admin-table th {
+      padding: 14px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .admin-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .admin-table tbody tr:hover {
+      background: var(--bg-secondary);
+      transition: background 0.2s ease;
+    }
+
+    .admin-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-success {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+    }
+
+    .badge-error {
+      background: rgba(220, 38, 38, 0.1);
+      color: #dc2626;
+    }
+
+    .badge-info {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .action-btn:hover {
+      background: var(--accent-color);
+      color: var(--bg-primary);
+      border-color: var(--accent-color);
+    }
+
+    .pagination {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .pagination button {
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pagination button:hover:not(:disabled) {
+      background: var(--accent-color);
+      color: var(--bg-primary);
+    }
+
+    .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--accent-color), #f0e081);
+      padding: 20px;
+      border-radius: 8px;
+      color: var(--bg-primary);
+      box-shadow: 0 4px 12px rgba(232, 214, 97, 0.2);
+    }
+
+    .stat-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 16px 12px;
+      }
+
+      .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .admin-controls {
+        flex-direction: column;
+      }
+
+      .admin-controls input,
+      .btn {
+        width: 100%;
+      }
+
+      .admin-table {
+        font-size: 0.8rem;
+      }
+
+      .admin-table th,
+      .admin-table td {
+        padding: 8px;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .tab {
+        text-align: center;
+        border-bottom: none;
+        border-bottom: 2px solid var(--border-color);
+        position: static;
+      }
+
+      .tab.active {
+        border-bottom-color: var(--accent-color);
+      }
+    }
+  </style>
+  <script>
+    document.documentElement.style.display = '';
+  </script>
+</head>
+<body>
+  <main>
+    <div class="admin-header">
+      <h1>⚙️ Админ Панель</h1>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="contacts">📧 Заявки</button>
+      <button class="tab" data-tab="users">👥 Пользователи</button>
+    </div>
+
+    <div id="contacts" class="tab-content active">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Всего заявок</h3>
+          <div class="number" id="totalContacts">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Обработано</h3>
+          <div class="number" id="sentContacts">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>В очереди</h3>
+          <div class="number" id="pendingContacts">0</div>
+        </div>
+      </div>
+
+      <div class="admin-controls">
+        <input id="q" placeholder="🔍 Поиск по имени, email, сообщение...">
+        <select id="sent">
+          <option value="">Все заявки</option>
+          <option value="1">✅ Отправленные</option>
+          <option value="0">⏳ Не отправленные</option>
+        </select>
+        <button class="btn" id="searchBtn">Поиск</button>
+        <button class="btn btn-secondary" id="exportBtn">📥 Экспорт CSV</button>
+        <button class="btn btn-secondary" id="backupBtn">💾 Бэкап БД</button>
+      </div>
+
+      <table class="admin-table" id="contactsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Сообщение</th>
+            <th>Дата</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="pagination">
+        <button id="prevContacts">◀ Назад</button>
+        <span id="contactsPageInfo" style="min-width: 100px; text-align: center;">Стр. 1</span>
+        <button id="nextContacts">Далее ▶</button>
+      </div>
+    </div>
+
+    <div id="users" class="tab-content">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Всего пользователей</h3>
+          <div class="number" id="totalUsers">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>Активных</h3>
+          <div class="number" id="activeUsers">0</div>
+        </div>
+        <div class="stat-card">
+          <h3>За последний месяц</h3>
+          <div class="number" id="newUsers">0</div>
+        </div>
+      </div>
+
+      <div class="admin-controls">
+        <input id="userSearch" placeholder="🔍 Поиск пользователя...">
+        <button class="btn" id="refreshUsersBtn">🔄 Обновить</button>
+      </div>
+
+      <table class="admin-table" id="usersTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Зарегистрирован</th>
+            <th>Последний вход</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let currentTab = 'contacts';
+    let currentContactsPage = 1;
+    const contactsLimit = 20;
+    let allUsers = [];
+    let userSession = null;
+
+
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+        tab.classList.add('active');
+        currentTab = tab.dataset.tab;
+        document.getElementById(currentTab).classList.add('active');
+      });
+    });
+
+    async function loadContacts() {
+      try {
+        const params = new URLSearchParams({
+          q: document.getElementById('q').value || '',
+          sent: document.getElementById('sent').value || '',
+          page: currentContactsPage,
+          limit: contactsLimit
+        });
+
+        const response = await fetch(`/api/contacts?${params}`);
+        const data = await response.json();
+
+        const tbody = document.querySelector('#contactsTable tbody');
+        tbody.innerHTML = '';
+
+        if (!data.contacts || data.contacts.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="no-data">Нет заявок</td></tr>';
+        } else {
+          data.contacts.forEach(contact => {
+            const row = tbody.insertRow();
+            row.innerHTML = `
+              <td>${contact.id}</td>
+              <td>${contact.name}</td>
+              <td>${contact.email}</td>
+              <td>${(contact.message || '').substring(0, 50)}...</td>
+              <td>${new Date(contact.created_at).toLocaleDateString('ru-RU')}</td>
+              <td>
+                <span class="admin-badge ${contact.sent ? 'badge-success' : 'badge-error'}">
+                  ${contact.sent ? '✅ Отправлено' : '⏳ Очередь'}
+                </span>
+              </td>
+            `;
+          });
+        }
+
+        document.getElementById('totalContacts').textContent = data.total;
+        document.getElementById('sentContacts').textContent = data.contacts.filter(c => c.sent).length;
+        document.getElementById('pendingContacts').textContent = data.contacts.filter(c => !c.sent).length;
+
+        const totalPages = Math.ceil(data.total / contactsLimit);
+        document.getElementById('contactsPageInfo').textContent = `Стр. ${currentContactsPage} из ${totalPages}`;
+        document.getElementById('prevContacts').disabled = currentContactsPage === 1;
+        document.getElementById('nextContacts').disabled = currentContactsPage >= totalPages;
+      } catch (err) {
+        console.error('Load contacts error:', err);
+      }
+    }
+
+    async function loadUsers() {
+      try {
+        const response = await fetch('/api/users');
+        const data = await response.json();
+        allUsers = data.users || [];
+
+        const tbody = document.querySelector('#usersTable tbody');
+        tbody.innerHTML = '';
+
+        if (allUsers.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="no-data">Нет пользователей</td></tr>';
+        } else {
+          allUsers.forEach(user => {
+            const row = tbody.insertRow();
+            const lastLogin = user.last_login ? new Date(user.last_login).toLocaleDateString('ru-RU') : 'Никогда';
+            row.innerHTML = `
+              <td>${user.id}</td>
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td>${new Date(user.created_at).toLocaleDateString('ru-RU')}</td>
+              <td>${lastLogin}</td>
+              <td>
+                <span class="admin-badge ${user.verified ? 'badge-success' : 'badge-info'}">
+                  ${user.verified ? '✅ Верифицирован' : '⏳ Ожидания'}
+                </span>
+              </td>
+            `;
+          });
+        }
+
+        document.getElementById('totalUsers').textContent = allUsers.length;
+        document.getElementById('activeUsers').textContent = allUsers.filter(u => u.last_login).length;
+
+        const oneMonthAgo = new Date();
+        oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+        const newUsers = allUsers.filter(u => new Date(u.created_at) > oneMonthAgo).length;
+        document.getElementById('newUsers').textContent = newUsers;
+      } catch (err) {
+        console.error('Load users error:', err);
+      }
+    }
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      currentContactsPage = 1;
+      loadContacts();
+    });
+
+    document.getElementById('nextContacts').addEventListener('click', () => {
+      currentContactsPage++;
+      loadContacts();
+    });
+
+    document.getElementById('prevContacts').addEventListener('click', () => {
+      if (currentContactsPage > 1) currentContactsPage--;
+      loadContacts();
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const params = new URLSearchParams({
+        q: document.getElementById('q').value || '',
+        sent: document.getElementById('sent').value || ''
+      });
+      window.location.href = `/api/contacts/export?${params}`;
+    });
+
+    document.getElementById('backupBtn').addEventListener('click',async () => {
+      try {
+        const response = await fetch('/api/backup', { method: 'POST' });
+        const data = await response.json();
+        alert('✅ Бэкап создан: ' + data.file);
+      } catch (err) {
+        alert('❌ Ошибка: ' + err.message);
+      }
+    });
+
+    document.getElementById('refreshUsersBtn').addEventListener('click', loadUsers);
+
+
+    ['q', 'sent'].forEach(id => {
+      document.getElementById(id).addEventListener('change', () => {
+        currentContactsPage = 1;
+        loadContacts();
+      });
+    });
+
+    loadContacts();
+    loadUsers();
+  </script>
+</body>
+</html>
