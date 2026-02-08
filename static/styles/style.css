@@ -2199,6 +2199,10 @@ h2::after {
     display: block;
   }
 
+  /* Auth controls: combined vs split */
+  .auth-combined { display: none; }
+  .auth-split { display: inline-block; }
+
   /* Hide sidebar on small screens, show mobile menu instead */
   .sidebar {
     width: 0;
@@ -2208,9 +2212,22 @@ h2::after {
   }
 
   .sidebar.active {
-    width: 70px;
+    /* On mobile, expand fully to show labels */
+    width: 240px;
     opacity: 1;
     pointer-events: auto;
+  }
+
+  /* When mobile sidebar is active, show full labels */
+  .sidebar.active a .label {
+    display: inline-block;
+    opacity: 1;
+    transition: opacity 180ms ease;
+  }
+
+  /* Ensure icon and label layout fits mobile width */
+  .sidebar.active a {
+    padding: 12px 16px;
   }
 
   /* Main content adjustment */
@@ -2235,6 +2252,18 @@ h2::after {
   }
 
   /* Header */
+
+  /* Mobile: hide split auth buttons and show combined control */
+  @media (max-width: 768px) {
+    .auth-split { display: none !important; }
+    .auth-combined { display: inline-block !important; position: relative; }
+    .auth-combined-btn { padding: 6px 10px; background: var(--accent-color); color: var(--bg-primary); border-radius: 6px; border: 0; cursor: pointer; font-weight:600 }
+    .auth-combined-menu { display: none; position: absolute; right: 0; bottom: 44px; background: var(--bg-primary); color: var(--text-primary); border-radius:8px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); overflow:hidden }
+    .auth-combined.open .auth-combined-menu { display: block }
+    .auth-combined-menu a { display: block; padding: 8px 12px; color: inherit; text-decoration: none }
+    .auth-combined-menu a:hover { background: var(--bg-secondary) }
+  }
+
   .header-top {
     padding: 12px 16px;
   }
