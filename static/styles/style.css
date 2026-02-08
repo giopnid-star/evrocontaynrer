@@ -201,9 +201,9 @@ header.collapsed {
    — при открытии увеличиваем отступ header, чтобы панель не перекрывала контент */
 .search-bar {
   position: absolute;
-  left: 28px;
-  right: 28px;
-  top: 100%;
+  left: 12px;
+  right: 12px;
+  top: calc(100% + 4px);
   transform: none;
   display: flex;
   align-items: center;
