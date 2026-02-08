@@ -284,9 +284,6 @@ app.post('/send', async (req, res) => {
   }
 });
 
-// Serve static files
-app.use(express.static(path.join(__dirname)));
-
 // GET: List contacts
 app.get('/api/contacts', (req, res) => {
   const q = (req.query.q || '').trim();
@@ -348,6 +345,12 @@ app.post('/api/backup', async (req, res) => {
     return res.status(500).json({ error: err.message });
   }
 });
+
+// Serve static files (MUST be last, after all API endpoints)
+// Skip /api routes and non-GET requests to directories
+app.use(express.static(path.join(__dirname), {
+  skip: (req, res) => req.path.startsWith('/api')
+}));
 
 app.listen(PORT, () => {
   console.log(`🚀 Mail & DB server listening on http://localhost:${PORT}`);
