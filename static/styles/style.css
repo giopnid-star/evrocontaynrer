@@ -221,14 +221,42 @@ header.collapsed {
   max-width: 420px;
 }
 
-/* Скрыть поиск полностью на мобильных */
+/* Адаптация поиска на мобильных */
 @media (max-width: 768px) {
   .search-bar {
-    display: none !important;
+    position: absolute;
+    right: 50px;
+    top: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    width: 180px;
+    z-index: 1400;
+    margin-top: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-top.search-active .search-bar {
+    display: flex;
+  }
+
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    padding: 4px;
+    font-size: 0.7rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
   }
   
   .header-top {
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
 }
 
@@ -2187,29 +2215,30 @@ h2::after {
 
   /* Header */
   .header-top {
-    padding: 12px 16px;
+    padding: 8px 10px;
   }
 
   .header-top .logo {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
-  .search-bar {
-    right: 140px;
+  .top-right-controls {
+    gap: 4px;
   }
 
-  .header-top.search-active .search-bar {
-    max-width: 250px;
+  .search-toggle-btn,
+  .theme-toggle-btn {
+    padding: 4px 6px;
+    font-size: 0.9rem;
   }
 
+  /* HIDE dropdown navigation on mobile - prevents overlap */
   .header-nav {
-    padding: 12px 16px 16px 16px;
-    gap: 6px;
+    display: none !important;
   }
 
-  .nav-btn {
-    padding: 8px 12px;
-    font-size: 0.85rem;
+  .dropdown-menu {
+    display: none !important;
   }
 
   /* Hero */
@@ -2377,6 +2406,90 @@ h2::after {
   }
 }
 
+/* Mobile safety fixes: keep nav static and expanded, search compact */
+@media (max-width: 768px) {
+  /* Ensure header navigation is static and part of the page flow */
+  header.collapsed .header-nav,
+  .header-nav {
+    position: static !important;
+    transform: none !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    display: block !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+
+  /* Make the nav vertical and always expanded so it doesn't overlap content */
+  .header-nav {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 12px 12px 12px;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    z-index: 1200;
+  }
+
+  .header-nav .nav-item {
+    display: block;
+    width: 100%;
+  }
+
+  .header-nav .nav-btn {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    font-size: 0.95rem;
+    white-space: normal;
+  }
+
+  .header-nav .nav-btn:hover {
+    transform: none;
+    background: rgba(0,0,0,0.03);
+  }
+
+  /* Show dropdowns inline under each nav item */
+  .header-nav .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    flex-direction: column;
+    gap: 4px;
+    margin: 4px 0 8px 12px;
+    padding-left: 8px;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .header-nav .dropdown-menu a {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-left: none;
+  }
+
+  /* Keep search as a compact popup that doesn't overlap */
+  .header-top.search-active .search-bar {
+    display: flex !important;
+    position: absolute !important;
+    right: 50px !important;
+    top: 100% !important;
+    width: 180px !important;
+    z-index: 1400 !important;
+  }
+
+  /* Hide hamburger since we display full nav on mobile */
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+}
+
 /* Mobile phones (480px - 640px) */
 @media (max-width: 640px) {
   body {
@@ -2432,30 +2545,15 @@ h2::after {
     font-size: 0.9rem;
   }
 
-  /* Navigation */
-  .header-nav {
-    padding: 8px 8px 10px 8px;
-    gap: 4px;
+  .search-bar {
+    width: 160px;
   }
 
-  .nav-btn {
-    padding: 6px 8px;
-    font-size: 0.7rem;
-  }
-
-  header.collapsed .nav-btn {
-    padding: 4px 6px;
-    font-size: 0.6rem;
-  }
-
-  /* Dropdown */
-  .dropdown-menu {
-    min-width: 110px;
-  }
-
-  .dropdown-menu a {
-    padding: 8px 8px;
-    font-size: 0.7rem;
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    padding: 3px;
+    font-size: 0.65rem;
   }
 
   /* Hero */
@@ -2806,14 +2904,14 @@ h2::after {
     font-size: 0.85rem;
   }
 
-  /* Navigation */
-  .header-nav {
-    padding: 6px 6px 8px 6px;
-    gap: 3px;
+  .search-bar {
+    width: 140px;
   }
 
-  .nav-btn {
-    padding: 5px 6px;
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    padding: 2px;
     font-size: 0.6rem;
   }
 
