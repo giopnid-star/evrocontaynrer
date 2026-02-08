@@ -221,6 +221,17 @@ header.collapsed {
   max-width: 420px;
 }
 
+/* Скрыть поиск полностью на мобильных */
+@media (max-width: 768px) {
+  .search-bar {
+    display: none !important;
+  }
+  
+  .header-top {
+    padding: 10px 12px;
+  }
+}
+
 .header-nav {
   display: flex;
   gap: 12px;
@@ -2369,551 +2380,108 @@ h2::after {
 /* Mobile phones (480px - 640px) */
 @media (max-width: 640px) {
   body {
-    font-size: 14px;
-  }
-
-  /* Main content */
-  main {
-    padding: 16px 14px;
-  }
-
-  section {
-    padding: 32px 16px;
-    margin: 12px 0;
-    border-radius: 8px;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-  }
-
-  /* Header */
-  .header-top {
-    padding: 10px 12px;
-  }
-
-  .header-top .logo {
-    font-size: 1.2rem;
-  }
-
-  .top-right-controls {
-    gap: 10px;
-  }
-
-  .search-toggle-btn,
-  .theme-toggle-btn {
-    padding: 6px 10px;
-    font-size: 1.1rem;
-  }
-
-  .search-bar {
-    right: 120px;
-  }
-
-  .header-top.search-active .search-bar {
-    max-width: 200px;
-  }
-
-  .search-bar input,
-  .search-bar select {
-    padding: 6px 10px;
-    font-size: 0.85rem;
-  }
-
-  /* Navigation */
-  .header-nav {
-    padding: 10px 12px 12px 12px;
-    gap: 6px;
-  }
-
-  .nav-btn {
-    padding: 8px 12px;
-    font-size: 0.8rem;
-  }
-
-  header.collapsed .nav-btn {
-    padding: 6px 8px;
-    font-size: 0.75rem;
-  }
-
-  /* Dropdown menu */
-  .dropdown-menu {
-    min-width: 150px;
-    margin-top: 6px;
-  }
-
-  .dropdown-menu a {
-    padding: 10px 12px;
-    font-size: 0.85rem;
-  }
-
-  /* Hero */
-  .hero {
-    padding: 20px 14px;
-    margin-top: 90px;
-  }
-
-  .hero-container {
-    gap: 20px;
-  }
-
-  .hero-title {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-    line-height: 1.2;
-  }
-
-  .hero-description {
-    font-size: 0.9rem;
-    margin-bottom: 16px;
-    line-height: 1.4;
-  }
-
-  .hero-cta {
-    padding: 10px 28px;
-    font-size: 0.85rem;
-  }
-
-  .hero-progress {
-    height: 2px;
-  }
-
-  .hero-pagination {
-    gap: 8px;
-    font-size: 0.85rem;
-    margin-top: 16px;
-  }
-
-  .hero-btn {
-    width: 8px;
-    height: 8px;
-  }
-
-  /* Gallery */
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .gallery-item {
-    border-radius: 8px;
-  }
-
-  .gallery-item img {
-    height: 150px;
-  }
-
-  .gallery-item h3 {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-
-  /* Services */
-  .services-subtitle {
-    font-size: 1rem;
-    margin-bottom: 30px;
-  }
-
-  .services-grid {
-    gap: 14px;
-  }
-
-  .service-card {
-    padding: 16px 12px;
-    border-radius: 12px;
-  }
-
-  .service-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.8rem;
-  }
-
-  .service-card-header {
-    gap: 12px;
-  }
-
-  .service-card-header h3 {
-    font-size: 1rem;
-    padding-top: 6px;
-  }
-
-  .service-card-content p {
-    font-size: 0.85rem;
-    margin-bottom: 12px;
-  }
-
-  .service-features li {
-    font-size: 0.8rem;
-  }
-
-  .service-btn {
-    padding: 10px 18px;
-    font-size: 0.85rem;
-  }
-
-  /* Projects */
-  .projects-tabs {
-    gap: 10px;
-  }
-
-  .projects-tab {
-    padding: 8px 12px;
-    font-size: 0.75rem;
-  }
-
-  .project-card {
-    border-radius: 10px;
-  }
-
-  .project-card img {
-    height: 180px;
-  }
-
-  .project-card-content {
-    padding: 14px;
-  }
-
-  .project-card h4 {
-    font-size: 1rem;
-    margin-bottom: 6px;
-  }
-
-  .project-card p {
-    font-size: 0.8rem;
-  }
-
-  .project-card .badge {
-    padding: 4px 8px;
-    font-size: 0.7rem;
-  }
-
-  /* Cards */
-  .card {
-    padding: 18px;
-    margin-bottom: 24px;
-    border-radius: 10px;
-  }
-
-  .info-cards {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .info-cell {
-    padding: 10px;
-    font-size: 0.85rem;
-  }
-
-  /* Contact form */
-  .contact-form {
-    gap: 12px;
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-    padding: 8px;
-    font-size: 0.9rem;
-    border-radius: 6px;
-  }
-
-  .contact-form button {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-
-  /* Containers section */
-  .containers-section {
-    padding: 30px 20px;
-    border-radius: 10px;
-  }
-
-  .containers-section h3 {
-    font-size: 1.4rem;
-  }
-
-  .containers-grid {
-    gap: 16px;
-  }
-
-  .containers-media {
-    border-radius: 10px;
-  }
-
-  .containers-blocks {
-    gap: 10px;
-  }
-
-  .container-block {
-    padding: 10px;
-    border-radius: 8px;
-  }
-
-  .container-block h4 {
-    font-size: 0.9rem;
-  }
-
-  .container-block p {
-    font-size: 0.8rem;
-  }
-
-  /* Calculator */
-  .calculator {
-    padding: 18px 12px;
-    border-radius: 10px;
-  }
-
-  .calculator-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .calculator-controls label {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-  }
-
-  .calculator-controls select,
-  .calculator-controls input[type="number"] {
-    font-size: 0.9rem;
-  }
-
-  .pc-presets button {
-    padding: 6px 10px;
-    font-size: 0.75rem;
-  }
-
-  .calculator-result {
-    padding: 14px;
-    border-radius: 8px;
-  }
-
-  .pc-total {
-    font-size: 1.1rem;
-  }
-
-  .pc-note {
-    font-size: 0.85rem;
-  }
-
-  /* Footer */
-  .footer {
-    padding: 24px 16px;
-    margin-top: 200px;
-  }
-
-  .footer-content h3 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-  }
-
-  .footer-section h4 {
-    font-size: 1rem;
-  }
-
-  .footer-section ul {
-    gap: 6px;
-  }
-
-  .footer-section li {
-    padding: 6px 0;
-    font-size: 0.85rem;
-  }
-
-  .footer-copyright {
-    font-size: 0.8rem;
-  }
-
-  .footer-btn {
-    padding: 10px 18px;
-    font-size: 0.85rem;
-  }
-
-  /* Why us section */
-  .why-container h2 {
-    font-size: 1.5rem;
-  }
-
-  .why-slider {
-    gap: 14px;
-    margin-top: 20px;
-  }
-
-  .why-slide {
-    padding: 20px 16px;
-    width: 100%;
-    border-radius: 12px;
-  }
-
-  .why-icon {
-    font-size: 2.2rem;
-  }
-
-  .why-slide h3 {
-    font-size: 1rem;
-  }
-
-  .why-slide p {
-    font-size: 0.85rem;
-  }
-
-  /* Tabs */
-  .tabs {
-    gap: 8px;
-  }
-
-  .tab {
-    padding: 8px 12px;
-    font-size: 0.75rem;
-  }
-
-  /* Back button */
-  .back-button {
-    margin: 80px 0 10px 0;
-    padding: 8px 12px;
-    font-size: 0.85rem;
-  }
-
-  /* Language panel */
-  .lang-panel {
-    min-width: 100px;
-  }
-
-  .lang-option {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-  }
-
-  /* Search bar adjustments */
-  .search-bar input::placeholder {
-    font-size: 0.8rem;
-  }
-}
-
-/* Small phones (320px - 480px) */
-@media (max-width: 480px) {
-  body {
     font-size: 13px;
   }
 
   main {
-    padding: 12px 12px;
+    padding: 14px 10px;
   }
 
   section {
-    padding: 24px 14px;
-    margin: 10px 0;
+    padding: 28px 12px;
+    margin: 8px 0;
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   h2 {
-    font-size: 1.4rem;
-    margin-bottom: 16px;
+    font-size: 1.3rem;
+    margin-bottom: 14px;
   }
 
   h2::after {
     width: 40px;
     height: 2px;
-    bottom: -10px;
+    bottom: -8px;
   }
 
   h3 {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
-  /* Header */
+  /* Header - упрощено */
   .header-top {
-    padding: 8px 10px;
-    gap: 8px;
+    padding: 8px 8px;
+    gap: 6px;
   }
 
   .header-top .logo {
-    font-size: 1rem;
+    font-size: 0.95rem;
     letter-spacing: 0;
   }
 
   .top-right-controls {
-    gap: 6px;
+    gap: 4px;
   }
 
   .search-toggle-btn,
   .theme-toggle-btn {
-    padding: 4px 8px;
-    font-size: 1rem;
-  }
-
-  .search-bar {
-    right: 90px;
-  }
-
-  .header-top.search-active .search-bar {
-    max-width: 150px;
-  }
-
-  .search-bar input,
-  .search-bar select {
-    padding: 4px 8px;
-    font-size: 0.8rem;
-  }
-
-  .search-bar button {
-    padding: 4px 8px;
-    font-size: 0.75rem;
+    padding: 4px 6px;
+    font-size: 0.9rem;
   }
 
   /* Navigation */
   .header-nav {
-    padding: 8px 10px 10px 10px;
+    padding: 8px 8px 10px 8px;
     gap: 4px;
   }
 
   .nav-btn {
-    padding: 6px 10px;
-    font-size: 0.75rem;
+    padding: 6px 8px;
+    font-size: 0.7rem;
+  }
+
+  header.collapsed .nav-btn {
+    padding: 4px 6px;
+    font-size: 0.6rem;
   }
 
   /* Dropdown */
   .dropdown-menu {
-    min-width: 120px;
+    min-width: 110px;
   }
 
   .dropdown-menu a {
-    padding: 8px 10px;
-    font-size: 0.75rem;
+    padding: 8px 8px;
+    font-size: 0.7rem;
   }
 
   /* Hero */
   .hero {
-    padding: 16px 12px;
-    margin-top: 80px;
+    padding: 16px 10px;
+    margin-top: 75px;
   }
 
   .hero-container {
-    gap: 16px;
+    gap: 12px;
   }
 
   .hero-title {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
     line-height: 1.2;
   }
 
   .hero-description {
-    font-size: 0.85rem;
-    margin-bottom: 12px;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
   }
 
   .hero-cta {
-    padding: 8px 20px;
-    font-size: 0.8rem;
+    padding: 8px 16px;
+    font-size: 0.75rem;
   }
 
   .hero-progress {
@@ -2922,8 +2490,8 @@ h2::after {
 
   .hero-pagination {
     gap: 6px;
-    font-size: 0.75rem;
-    margin-top: 12px;
+    font-size: 0.7rem;
+    margin-top: 10px;
   }
 
   .hero-btn {
@@ -2934,7 +2502,7 @@ h2::after {
   /* Gallery */
   .gallery {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 8px;
   }
 
   .gallery-item {
@@ -2942,22 +2510,22 @@ h2::after {
   }
 
   .gallery-item img {
-    height: 130px;
+    height: 120px;
   }
 
   .gallery-item h3 {
-    padding: 8px;
-    font-size: 0.8rem;
+    padding: 6px;
+    font-size: 0.75rem;
   }
 
   /* Services */
   .services-subtitle {
     font-size: 0.9rem;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .services-grid {
-    gap: 12px;
+    gap: 10px;
   }
 
   .service-card {
@@ -2972,20 +2540,20 @@ h2::after {
   }
 
   .service-card-header h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .service-card-content p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .service-features li {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   .service-btn {
-    padding: 8px 14px;
-    font-size: 0.75rem;
+    padding: 8px 12px;
+    font-size: 0.7rem;
   }
 
   /* Projects */
@@ -2995,29 +2563,29 @@ h2::after {
   }
 
   .projects-tab {
-    padding: 6px 10px;
-    font-size: 0.7rem;
+    padding: 6px 8px;
+    font-size: 0.65rem;
   }
 
   .project-card img {
-    height: 150px;
+    height: 140px;
   }
 
   .project-card-content {
-    padding: 10px;
+    padding: 8px;
   }
 
   .project-card h4 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .project-card p {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   /* Cards */
   .card {
-    padding: 14px;
+    padding: 12px;
     border-radius: 8px;
   }
 
@@ -3027,12 +2595,12 @@ h2::after {
 
   .info-cell {
     padding: 8px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   /* Contact form */
   .contact-form {
-    gap: 10px;
+    gap: 8px;
   }
 
   .contact-form input,
@@ -3048,12 +2616,12 @@ h2::after {
 
   /* Containers */
   .containers-section {
-    padding: 24px 14px;
+    padding: 20px 12px;
     border-radius: 8px;
   }
 
   .containers-section h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .containers-grid {
@@ -3070,115 +2638,408 @@ h2::after {
   }
 
   .container-block h4 {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .container-block p {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 
   /* Calculator */
   .calculator {
-    padding: 14px 10px;
+    padding: 12px 10px;
   }
 
   .calculator-controls label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
   }
 
   .pc-presets button {
-    padding: 4px 8px;
-    font-size: 0.7rem;
+    padding: 4px 6px;
+    font-size: 0.6rem;
   }
 
   .calculator-result {
-    padding: 12px;
+    padding: 10px;
   }
 
   .pc-total {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   /* Footer */
   .footer {
-    padding: 20px 12px;
+    padding: 18px 10px;
     margin-top: 150px;
   }
 
   .footer-content h3 {
-    font-size: 1.1rem;
-    margin-bottom: 16px;
+    font-size: 1rem;
+    margin-bottom: 14px;
   }
 
   .footer-section h4 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .footer-section li {
-    padding: 4px 0;
-    font-size: 0.8rem;
-  }
-
-  .footer-copyright {
+    padding: 3px 0;
     font-size: 0.75rem;
   }
 
+  .footer-copyright {
+    font-size: 0.7rem;
+  }
+
   .footer-btn {
-    padding: 8px 14px;
-    font-size: 0.8rem;
+    padding: 8px 12px;
+    font-size: 0.75rem;
   }
 
   /* Why us */
   .why-slider {
-    gap: 12px;
+    gap: 10px;
   }
 
   .why-slide {
-    padding: 16px 12px;
+    padding: 14px 10px;
   }
 
   .why-icon {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .why-slide h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .why-slide p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   /* Tabs */
   .tab {
-    padding: 6px 10px;
-    font-size: 0.7rem;
+    padding: 6px 8px;
+    font-size: 0.65rem;
   }
 
   /* Back button */
   .back-button {
     margin: 60px 0 8px 0;
-    padding: 6px 10px;
-    font-size: 0.8rem;
+    padding: 6px 8px;
+    font-size: 0.75rem;
   }
 
   /* Language wrapper */
   .lang-wrapper {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   #lang-toggle {
-    padding: 6px 10px;
+    padding: 4px 6px;
   }
 
   /* Pagination */
   .pagination-info {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .pagination-btn {
-    padding: 8px 12px;
+    padding: 8px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Small phones (320px - 480px) */
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  main {
+    padding: 10px 8px;
+  }
+
+  section {
+    padding: 20px 8px;
+    margin: 6px 0;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  h2::after {
+    width: 35px;
+    height: 2px;
+    bottom: -6px;
+  }
+
+  h3 {
+    font-size: 0.85rem;
+  }
+
+  /* Header */
+  .header-top {
+    padding: 6px 6px;
+    gap: 4px;
+  }
+
+  .header-top .logo {
+    font-size: 0.85rem;
+    letter-spacing: 0;
+  }
+
+  .top-right-controls {
+    gap: 3px;
+  }
+
+  .search-toggle-btn,
+  .theme-toggle-btn {
+    padding: 3px 5px;
+    font-size: 0.85rem;
+  }
+
+  /* Navigation */
+  .header-nav {
+    padding: 6px 6px 8px 6px;
+    gap: 3px;
+  }
+
+  .nav-btn {
+    padding: 5px 6px;
+    font-size: 0.6rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 12px 8px;
+    margin-top: 65px;
+  }
+
+  .hero-container {
+    gap: 10px;
+  }
+
+  .hero-title {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+  }
+
+  .hero-cta {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+
+  .hero-pagination {
+    gap: 4px;
+    font-size: 0.6rem;
+    margin-top: 8px;
+  }
+
+  /* Gallery */
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .gallery-item img {
+    height: 100px;
+  }
+
+  .gallery-item h3 {
+    padding: 4px;
+    font-size: 0.65rem;
+  }
+
+  /* Services */
+  .services-subtitle {
     font-size: 0.8rem;
+    margin-bottom: 16px;
+  }
+
+  .services-grid {
+    gap: 8px;
+  }
+
+  .service-card {
+    padding: 10px 8px;
+  }
+
+  .service-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+  }
+
+  .service-card-header h3 {
+    font-size: 0.8rem;
+  }
+
+  .service-card-content p {
+    font-size: 0.7rem;
+  }
+
+  .service-features li {
+    font-size: 0.65rem;
+  }
+
+  .service-btn {
+    padding: 6px 10px;
+    font-size: 0.65rem;
+  }
+
+  /* Projects */
+  .projects-tab {
+    padding: 5px 6px;
+    font-size: 0.55rem;
+  }
+
+  .project-card img {
+    height: 120px;
+  }
+
+  .project-card-content {
+    padding: 6px;
+  }
+
+  .project-card h4 {
+    font-size: 0.8rem;
+  }
+
+  .project-card p {
+    font-size: 0.65rem;
+  }
+
+  /* Cards */
+  .card {
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  .info-cell {
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+
+  /* Contact form */
+  .contact-form {
+    gap: 6px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 5px;
+    font-size: 0.8rem;
+  }
+
+  /* Containers */
+  .containers-section {
+    padding: 16px 10px;
+  }
+
+  .containers-section h3 {
+    font-size: 1rem;
+  }
+
+  .container-block {
+    padding: 6px;
+  }
+
+  .container-block h4 {
+    font-size: 0.7rem;
+  }
+
+  .container-block p {
+    font-size: 0.65rem;
+  }
+
+  /* Calculator */
+  .calculator {
+    padding: 10px 8px;
+  }
+
+  .pc-presets button {
+    padding: 3px 5px;
+    font-size: 0.55rem;
+  }
+
+  .calculator-result {
+    padding: 8px;
+  }
+
+  .pc-total {
+    font-size: 0.9rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 14px 8px;
+    margin-top: 120px;
+  }
+
+  .footer-content h3 {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+
+  .footer-section h4 {
+    font-size: 0.8rem;
+  }
+
+  .footer-section li {
+    padding: 2px 0;
+    font-size: 0.7rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.65rem;
+  }
+
+  .footer-btn {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+
+  /* Why us */
+  .why-slide {
+    padding: 12px 8px;
+  }
+
+  .why-icon {
+    font-size: 1.6rem;
+  }
+
+  .why-slide h3 {
+    font-size: 0.8rem;
+  }
+
+  .why-slide p {
+    font-size: 0.7rem;
+  }
+
+  /* Back button */
+  .back-button {
+    margin: 50px 0 6px 0;
+    padding: 5px 6px;
+    font-size: 0.7rem;
+  }
+
+  #lang-toggle {
+    padding: 3px 5px;
+    font-size: 0.7rem;
   }
 }
 
