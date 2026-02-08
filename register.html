@@ -279,6 +279,20 @@
         padding: 12px;
         font-size: 0.95rem;
       }
+
+      #error-block {
+        padding: 12px 14px !important;
+        margin-top: 16px !important;
+      }
+
+      #error-block h3 {
+        font-size: 0.95rem !important;
+        margin-bottom: 6px !important;
+      }
+
+      #error-text {
+        font-size: 0.9rem !important;
+      }
     }
   </style>
 </head>
@@ -288,8 +302,6 @@
       <h1>📋 Регистрация</h1>
       <p>Создайте аккаунт на Evrocontayner</p>
     </div>
-
-    <div id="message" class="error-message"></div>
 
     <form id="registerForm">
       <div class="form-group">
@@ -348,23 +360,60 @@
     <p class="login-link">
       Уже есть аккаунт? <a href="login.html">Войти</a>
     </p>
+
+    <div id="error-block" style="display: none; margin-top: 24px; padding: 16px; background: #fee; border: 2px solid #f44; border-radius: 8px; color: #c33;">
+      <h3 style="margin: 0 0 8px 0; font-size: 1rem; color: #c33;">❌ Ошибка регистрации</h3>
+      <p id="error-text" style="margin: 0; font-size: 0.95rem;"></p>
+    </div>
   </div>
 
   <script>
     const form = document.getElementById('registerForm');
-    const messageEl = document.getElementById('message');
+    const errorBlock = document.getElementById('error-block');
+    const errorText = document.getElementById('error-text');
     const submitBtn = form.querySelector('.submit-btn');
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorBlock.style.display = 'block';
+      errorBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideError() {
+      errorBlock.style.display = 'none';
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      hideError();
 
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
 
+      if (!name) {
+        showError('Пожалуйста, введите ваше имя');
+        return;
+      }
+
+      if (!email) {
+        showError('Пожалуйста, введите email');
+        return;
+      }
+
+      if (!password) {
+        showError('Пожалуйста, введите пароль');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('Пароль должен содержать минимум 6 символов');
+        return;
+      }
+
       if (password !== confirmPassword) {
-        showMessage('Пароли не совпадают', 'error');
+        showError('Пароли не совпадают');
         return;
       }
 
@@ -381,32 +430,30 @@
         const data = await response.json();
 
         if (response.ok) {
-          showMessage('✅ Регистрация успешна! Перенаправление...', 'success');
+          errorBlock.style.background = '#efe';
+          errorBlock.style.borderColor = '#4f4';
+          errorBlock.style.color = '#3a3';
+          errorBlock.querySelector('h3').textContent = '✅ Успешно!';
+          errorText.textContent = 'Регистрация завершена. Перенаправление...';
+          errorBlock.style.display = 'block';
+          
           localStorage.setItem('sessionToken', data.sessionToken);
           localStorage.setItem('user', JSON.stringify(data.user));
           setTimeout(() => window.location.href = 'index.html', 1500);
         } else {
-          showMessage('❌ ' + (data.error || 'Ошибка регистрации'), 'error');
+          showError(data.error || 'Ошибка регистрации');
         }
       } catch (err) {
-        showMessage('❌ Ошибка соединения: ' + err.message, 'error');
+        showError('Ошибка соединения: ' + err.message);
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'Зарегистрироваться';
       }
     });
 
-    function showMessage(text, type) {
-      messageEl.textContent = text;
-      messageEl.className = `${type}-message show`;
-      messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    // Clear error on input
+    // Clear error when user starts typing
     document.querySelectorAll('input').forEach(input => {
-      input.addEventListener('focus', () => {
-        messageEl.classList.remove('show');
-      });
+      input.addEventListener('focus', hideError);
     });
   </script>
 </body>

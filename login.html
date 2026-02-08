@@ -330,6 +330,20 @@
         gap: 10px;
         align-items: flex-start;
       }
+
+      #error-block {
+        padding: 12px 14px !important;
+        margin-top: 16px !important;
+      }
+
+      #error-block h3 {
+        font-size: 0.95rem !important;
+        margin-bottom: 6px !important;
+      }
+
+      #error-text {
+        font-size: 0.9rem !important;
+      }
     }
   </style>
 </head>
@@ -339,8 +353,6 @@
       <h1>🔐 Вход</h1>
       <p>Авторизуйтесь на вашем аккаунте</p>
     </div>
-
-    <div id="message" class="error-message"></div>
 
     <form id="loginForm">
       <div class="form-group">
@@ -381,13 +393,29 @@
     <p class="register-link">
       Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
     </p>
+
+    <div id="error-block" style="display: none; margin-top: 24px; padding: 16px; background: #fee; border: 2px solid #f44; border-radius: 8px; color: #c33;">
+      <h3 style="margin: 0 0 8px 0; font-size: 1rem; color: #c33;">❌ Ошибка входа</h3>
+      <p id="error-text" style="margin: 0; font-size: 0.95rem;"></p>
+    </div>
   </div>
 
   <script>
     const form = document.getElementById('loginForm');
-    const messageEl = document.getElementById('message');
+    const errorBlock = document.getElementById('error-block');
+    const errorText = document.getElementById('error-text');
     const submitBtn = form.querySelector('.submit-btn');
     const rememberMeCheckbox = document.getElementById('rememberMe');
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorBlock.style.display = 'block';
+      errorBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideError() {
+      errorBlock.style.display = 'none';
+    }
 
     // Check if "Remember me" was checked before
     const savedEmail = localStorage.getItem('rememberedEmail');
@@ -398,9 +426,20 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      hideError();
 
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
+
+      if (!email) {
+        showError('Пожалуйста, введите email');
+        return;
+      }
+
+      if (!password) {
+        showError('Пожалуйста, введите пароль');
+        return;
+      }
 
       // Save email if "Remember me" is checked
       if (rememberMeCheckbox.checked) {
@@ -422,31 +461,29 @@
         const data = await response.json();
 
         if (response.ok) {
-          showMessage('✅ Вы вошли! Перенаправление...', 'success');
+          errorBlock.style.background = '#efe';
+          errorBlock.style.borderColor = '#4f4';
+          errorBlock.style.color = '#3a3';
+          errorBlock.querySelector('h3').textContent = '✅ Успешно!';
+          errorText.textContent = 'Вы вошли в аккаунт. Перенаправление...';
+          errorBlock.style.display = 'block';
+          
           localStorage.setItem('sessionToken', data.sessionToken);
           localStorage.setItem('user', JSON.stringify(data.user));
           setTimeout(() => window.location.href = 'index.html', 1500);
         } else {
-          showMessage('❌ ' + (data.error || 'Ошибка входа'), 'error');
+          showError(data.error || 'Ошибка входа');
         }
       } catch (err) {
-        showMessage('❌ Ошибка соединения: ' + err.message, 'error');
+        showError('Ошибка соединения: ' + err.message);
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'Войти';
       }
     });
 
-    function showMessage(text, type) {
-      messageEl.textContent = text;
-      messageEl.className = `${type}-message show`;
-      messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
     document.querySelectorAll('input[type="email"], input[type="password"]').forEach(input => {
-      input.addEventListener('focus', () => {
-        messageEl.classList.remove('show');
-      });
+      input.addEventListener('focus', hideError);
     });
   </script>
 </body>
