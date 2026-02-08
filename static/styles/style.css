@@ -107,6 +107,13 @@ header.collapsed {
   animation: logoFloat 3s ease-in-out infinite;
 }
 
+.header-top .logo img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
 .header-top .logo::before {
   content: '';
   position: absolute;
@@ -121,6 +128,10 @@ header.collapsed {
 .header-top .logo:hover {
   transform: scale(1.08) translateY(-2px);
   filter: drop-shadow(0 8px 16px rgba(232, 214, 97, 0.4));
+}
+
+.header-top .logo:hover img {
+  transform: scale(1.05);
 }
 
 .header-top .logo:hover::before {
