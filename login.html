@@ -3,9 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <title>Авторизация — Evrocontayner</title>
   <link rel="stylesheet" href="static/styles/style.css">
-  <style>
+  <script>
+    document.documentElement.style.display = 'none';
+  </script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'dark';
+      if (theme === 'dark') document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
     body {
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       display: flex;
@@ -346,6 +355,9 @@
       }
     }
   </style>
+  <script>
+    document.documentElement.style.display = '';
+  </script>
 </head>
 <body>
   <div class="login-container">

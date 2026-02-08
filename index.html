@@ -4,10 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <title>Evrocontayner</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/styles/style.css">
   <link rel="stylesheet" href="static/styles/theme-variables.css">
+  <script>
+    // Hide body until theme is applied to prevent flash
+    document.documentElement.style.display = 'none';
+  </script>
   <script>
     // Быстро применить тему перед рендерингом контента
     (function () {
@@ -24,6 +29,10 @@
       document.documentElement.setAttribute('data-lang', lang);
       document.documentElement.lang = (lang === 'kz') ? 'kk' : 'ru';
     })();
+  </script>
+  <script>
+    // Show body after theme is applied
+    document.documentElement.style.display = '';
   </script>
 </head>
 
