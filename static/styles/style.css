@@ -1783,22 +1783,15 @@ h2::after {
 }
 
 .service-card.expanded .service-full-desc {
-  max-height: 480px;
-  opacity: 1;
-  padding-top: 12px;
+  display: none !important;
 }
 
 .service-close-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-weight: 600;
-  padding: 8px 0;
+  display: none !important;
 }
 
 .service-close-btn:hover {
-  color: var(--text-primary);
+  display: none !important;
 }
 
 @media (max-width: 768px) {
@@ -1825,7 +1818,7 @@ h2::after {
 @media (min-width: 1200px) {
   .services-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 12px;
   }
 
   .service-card {
