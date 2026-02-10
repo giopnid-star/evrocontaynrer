@@ -138,6 +138,45 @@
       animation: fadeInUp 0.6s ease-out 0.5s both;
     }
 
+    .remember-forgot label {
+      display: flex;
+      align-items: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .remember-forgot label:hover {
+      color: var(--text-primary);
+    }
+
+    .remember-forgot input[type="checkbox"] {
+      margin-right: 6px;
+      cursor: pointer;
+    }
+
+    .remember-forgot a {
+      color: #f5576c;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .remember-forgot a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #f5576c;
+      transition: width 0.3s ease;
+    }
+
+    .remember-forgot a:hover::after {
+      width: 100%;
+    }
+
     .submit-btn {
       width: 100%;
       padding: 14px;
@@ -200,6 +239,122 @@
       transition: all 0.3s ease;
       position: relative;
     }
+
+    .register-link a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #f5576c;
+      transition: width 0.3s ease;
+    }
+
+    .register-link a:hover::after {
+      width: 100%;
+    }
+
+    .error-message,
+    .success-message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      animation: slideDown 0.4s ease-out;
+      display: none;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .error-message {
+      background: rgba(220, 38, 38, 0.1);
+      color: #dc2626;
+      border-left: 4px solid #dc2626;
+    }
+
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border-left: 4px solid #22c55e;
+    }
+
+    .message.show {
+      display: block !important;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .submit-btn.loading {
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .login-container {
+        padding: 32px 20px;
+      }
+
+      .login-header h1 {
+        font-size: 1.6rem;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group input {
+        padding: 10px 12px;
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        padding: 12px;
+        font-size: 0.95rem;
+      }
+
+      .remember-forgot {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      #error-block {
+        padding: 12px 14px !important;
+        margin-top: 16px !important;
+      }
+
+      #error-block h3 {
+        font-size: 0.95rem !important;
+        margin-bottom: 6px !important;
+      }
+
+      #error-text {
+        font-size: 0.9rem !important;
+      }
+    }
   </style>
   <script>
     document.documentElement.style.display = '';
@@ -209,54 +364,137 @@
   <div class="login-container">
     <div class="login-header">
       <h1>🔐 Вход</h1>
-      <p>Введите свои данные для входа</p>
+      <p>Авторизуйтесь на вашем аккаунте</p>
     </div>
 
     <form id="loginForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="off">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          autocomplete="off"
+        >
       </div>
 
       <div class="form-group">
         <label for="password">Пароль</label>
-        <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6" autocomplete="off">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="••••••••"
+          required
+          autocomplete="off"
+        >
       </div>
 
       <div class="remember-forgot">
-        <label><input type="checkbox" id="remember"> Запомнить меня</label>
-        <a href="#">Забыли пароль?</a>
+        <label>
+          <input type="checkbox" id="rememberMe" name="rememberMe">
+          Запомнить меня
+        </label>
+        <a href="#forgot">Забыли пароль?</a>
       </div>
 
       <button type="submit" class="submit-btn">Войти</button>
     </form>
 
     <p class="register-link">
-      Новый пользователь? <a href="/register/">Зарегистрироваться</a>
+      Нет аккаунта? <a href="/register/">Зарегистрироваться</a>
     </p>
+
+    <div id="error-block" style="display: none; margin-top: 24px; padding: 16px; background: #fee; border: 2px solid #f44; border-radius: 8px; color: #c33;">
+      <h3 style="margin: 0 0 8px 0; font-size: 1rem; color: #c33;">❌ Ошибка входа</h3>
+      <p id="error-text" style="margin: 0; font-size: 0.95rem;"></p>
+    </div>
   </div>
 
   <script>
-    // minimal login handler (keeps existing behavior)
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    const form = document.getElementById('loginForm');
+    const errorBlock = document.getElementById('error-block');
+    const errorText = document.getElementById('error-text');
+    const submitBtn = form.querySelector('.submit-btn');
+    const rememberMeCheckbox = document.getElementById('rememberMe');
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorBlock.style.display = 'block';
+      errorBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideError() {
+      errorBlock.style.display = 'none';
+    }
+
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail) {
+      document.getElementById('email').value = savedEmail;
+      rememberMeCheckbox.checked = true;
+    }
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      hideError();
+
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
-      const btn = document.querySelector('.submit-btn');
-      btn.disabled = true; btn.textContent = 'Вход...';
+
+      if (!email) {
+        showError('Пожалуйста, введите email');
+        return;
+      }
+
+      if (!password) {
+        showError('Пожалуйста, введите пароль');
+        return;
+      }
+
+      if (rememberMeCheckbox.checked) {
+        localStorage.setItem('rememberedEmail', email);
+      } else {
+        localStorage.removeItem('rememberedEmail');
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Вход...';
+
       try {
-        const res = await fetch('/api/login', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email,password}) });
-        const data = await res.json();
-        if (res.ok) {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          errorBlock.style.background = '#efe';
+          errorBlock.style.borderColor = '#4f4';
+          errorBlock.style.color = '#3a3';
+          errorBlock.querySelector('h3').textContent = '✅ Успешно!';
+          errorText.textContent = 'Вы вошли в аккаунт. Перенаправление...';
+          errorBlock.style.display = 'block';
+
           localStorage.setItem('sessionToken', data.sessionToken);
           localStorage.setItem('user', JSON.stringify(data.user));
-          window.location.href = '/';
+          setTimeout(() => window.location.href = '/', 1500);
         } else {
-          alert(data.error || 'Ошибка входа');
+          showError(data.error || 'Ошибка входа');
         }
       } catch (err) {
-        alert('Ошибка соединения');
-      } finally { btn.disabled = false; btn.textContent = 'Войти'; }
+        showError('Ошибка соединения: ' + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Войти';
+      }
+    });
+
+    document.querySelectorAll('input[type="email"], input[type="password"]').forEach(input => {
+      input.addEventListener('focus', hideError);
     });
   </script>
 </body>
