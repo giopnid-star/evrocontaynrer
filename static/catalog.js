@@ -1,4 +1,4 @@
-// Вкладки (активируются только если есть элементы)
+﻿// Вкладки (активируются только если есть элементы)
 const tabs = document.querySelectorAll('.tab');
 const tabContents = document.querySelectorAll('.tab-content');
 if (tabs.length && tabContents.length) {
@@ -119,10 +119,10 @@ if (searchBtn) searchBtn.addEventListener('click', applyFilter);
 // Подсветка активной ссылки в боковой панели
 const sidebarLinks = document.querySelectorAll('.sidebar a');
 if (sidebarLinks.length) {
-    const current = location.pathname.split('/').pop() || 'index.html';
+    const current = location.pathname.split('/').pop() || '/';
     sidebarLinks.forEach(link => {
         const href = link.getAttribute('href').split('/').pop();
-        if (href === current || (current === '' && href === 'index.html')) {
+        if (href === current || (current === '' && href === '/')) {
             link.classList.add('active');
         }
     });

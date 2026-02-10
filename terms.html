@@ -1,250 +1,30 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="dark light">
-    <title>Условия пользования — Evrocontayner</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/styles/style.css">
-    <link rel="stylesheet" href="static/styles/theme-variables.css">
-    <script>
-        document.documentElement.style.display = 'none';
-    </script>
-    <script>
-        (function () {
-            const theme = localStorage.getItem('theme') || 'dark';
-            if (theme === 'dark') document.documentElement.classList.add('dark-mode');
-        })();
-    </script>
-    <script>
-        (function () {
-            const lang = localStorage.getItem('lang') || 'ru';
-            document.documentElement.setAttribute('data-lang', lang);
-            document.documentElement.lang = (lang === 'kz') ? 'kk' : 'ru';
-        })();
-    </script>
-    <script>
-        document.documentElement.style.display = '';
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Перенаправление — Evrocontayner</title>
+  <meta http-equiv="refresh" content="0; url=/terms/">
+  <link rel="canonical" href="https://evrocontayner.kz/terms/">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    a { color: #2563eb; }
+  </style>
 </head>
-
 <body>
-    <header>
-        <div class="header-top">
-            <a href="index.html" class="logo" data-i18n="logo">Evrocontayner</a>
-            <div class="search-bar">
-                <input type="text" id="search" placeholder="Поиск...">
-                <select id="filter">
-                    <option value="all" data-i18n="search.all">Все</option>
-                    <option value="containers" data-i18n="search.containers">Евро-контейнеры</option>
-                    <option value="kiosks" data-i18n="search.kiosks">Киоски</option>
-                    <option value="mobile" data-i18n="search.mobile">Мобильные решения</option>
-                </select>
-                <button id="search-btn" data-i18n="search.find">Найти</button>
-            </div>
-            <div class="top-right-controls">
-                <button class="search-toggle-btn">🔍</button>
-                <div class="lang-wrapper">
-                    <button id="lang-toggle" class="lang-tab">RU</button>
-                    <div id="lang-panel" class="lang-panel">
-                        <button class="lang-option" data-lang="ru">RU</button>
-                        <button class="lang-option" data-lang="kz">KZ</button>
-                    </div>
-                </div>
-                <button id="theme-toggle" class="theme-toggle-btn" title="Переключить тему">🌙</button>
-            </div>
-        </div>
-        <div class="header-nav">
-            <div class="nav-item">
-                <button class="nav-btn" data-i18n="nav.products">Продукция</button>
-                <div class="dropdown-menu">
-                    <a href="products.html">Евро-контейнеры</a>
-                    <a href="products.html">Модульные киоски</a>
-                    <a href="products.html">Мобильные решения</a>
-                    <a href="products.html">Комплектующие</a>
-                </div>
-            </div>
-            <div class="nav-item">
-                <button class="nav-btn" data-i18n="nav.applications">Сферы применения</button>
-                <div class="dropdown-menu">
-                    <a href="#">Торговля</a>
-                    <a href="#">Общественное питание</a>
-                    <a href="#">Логистика</a>
-                    <a href="#">Услуги</a>
-                </div>
-            </div>
-            <div class="nav-item">
-                <button class="nav-btn" data-i18n="nav.buy">Купить</button>
-                <div class="dropdown-menu">
-                    <a href="#">Каталог товаров</a>
-                    <a href="#">Цены</a>
-                    <a href="#">Доставка</a>
-                    <a href="#">Оплата</a>
-                </div>
-            </div>
-            <div class="nav-item">
-                <button class="nav-btn" data-i18n="nav.rent">Аренда</button>
-                <div class="dropdown-menu">
-                    <a href="#">Условия аренды</a>
-                    <a href="#">Тарифы</a>
-                    <a href="#">Договор</a>
-                    <a href="#">Поддержка</a>
-                </div>
-            </div>
-            <div class="nav-item">
-                <button class="nav-btn" data-i18n="nav.company">Компания</button>
-                <div class="dropdown-menu">
-                    <a href="about.html">О нас</a>
-                    <a href="#">История</a>
-                    <a href="#">Команда</a>
-                    <a href="contact.html">Контакты</a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="sidebar">
-        <a href="services.html" data-tooltip="Услуги">
-            <span class="icon" aria-hidden="true">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22 2l-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M14 2l8 8-5 5-8-8 5-5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M3 21c0-3 2-6 6-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </span>
-            <span class="label" data-i18n="sidebar.services">Услуги</span>
-        </a>
-        <a href="gallery.html" data-tooltip="Галерея">
-            <span class="icon" aria-hidden="true">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.4" />
-                    <circle cx="8" cy="9" r="1.6" fill="currentColor" />
-                    <path d="M21 18l-6-6-5 5-3-3-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
-                        stroke-linejoin="round" fill="none" />
-                </svg>
-            </span>
-            <span class="label" data-i18n="sidebar.gallery">Галерея</span>
-        </a>
-        <a href="products.html" data-tooltip="Продукция">
-            <span class="icon" aria-hidden="true">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2 4 6.27V16a2 2 0 0 0 1 1.73L11 22l8-4.27A2 2 0 0 0 21 16z"
-                        stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none" />
-                    <path d="M12 7v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
-                </svg>
-            </span>
-            <span class="label" data-i18n="sidebar.products">Продукция</span>
-        </a>
-        <a href="about.html" data-tooltip="О нас">
-            <span class="icon" aria-hidden="true">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4" />
-                    <path d="M12 8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-                    <path d="M11.5 11h1v5h-1z" fill="currentColor" />
-                </svg>
-            </span>
-            <span class="label" data-i18n="sidebar.about">О нас</span>
-        </a>
-        <a href="contact.html" data-tooltip="Контакты">
-            <span class="icon" aria-hidden="true">
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7" stroke="currentColor" stroke-width="1.4"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
-                        stroke-linejoin="round" fill="none" />
-                </svg>
-            </span>
-            <span class="label" data-i18n="sidebar.contacts">Контакты</span>
-        </a>
-    </div>
-
-    <main>
-        <a href="index.html" class="back-button" data-i18n="back.home">← Вернуться на главную</a>
-        <section id="terms">
-            <h2 data-i18n="terms.title">Условия пользования</h2>
-
-            <div class="terms-content">
-                <h3>I. Общие условия пользования сайтом Evrocontayner</h3>
-                <div class="terms-section">
-                    <h4>I.1. Сфера действия и объем услуг</h4>
-                    <p>Данные условия регулируют использование сайта Evrocontayner и предоставляемых услуг.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.2. Защита промышленных прав / интеллектуальная собственность</h4>
-                    <p>Все материалы на сайте защищены авторским правом и не могут быть использованы без разрешения.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.3. Ответственность</h4>
-                    <p>Компания не несет ответственность за убытки, вызванные использованием сайта.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.4. Доступность</h4>
-                    <p>Мы стремимся обеспечить доступность сайта для всех пользователей.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.5. Внешние ссылки</h4>
-                    <p>Сайт может содержать ссылки на внешние ресурсы. Мы не несем ответственность за их содержание.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.6. Защищенные страницы</h4>
-                    <p>Некоторые страницы могут быть защищены паролем.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.7. Пароли и аккаунты</h4>
-                    <p>Вы несете ответственность за сохранность своих паролей и данных аккаунта.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.8. Загрузка вредных материалов</h4>
-                    <p>Запрещается загружать вредоносные материалы на сайт.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>I.9. Электронные атаки</h4>
-                    <p>Любые попытки несанкционированного доступа запрещены и преследуются по закону.</p>
-                </div>
-
-                <h3>II. Прочие положения</h3>
-
-                <div class="terms-section">
-                    <h4>II.1. Подсудность</h4>
-                    <p>Все вопросы подлежат рассмотрению в соответствии с законодательством Республики Казахстан.</p>
-                </div>
-
-                <div class="terms-section">
-                    <h4>II.2. Изменения, дополнения, ограничение недействительности</h4>
-                    <p>Компания оставляет за собой право изменять условия пользования. Уведомление об изменениях будет
-                        опубликовано на сайте.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-copyright">
-                <p data-i18n="footer.copy">&copy; 2026 TOO Evrocontayner</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="static/catalog.js"></script>
-    <script src="static/cookie-consent.js"></script>
-    <script src="static/i18n.js" defer></script>
-    <script src="static/theme-toggle.js" defer></script>
-    <script src="static/lang-toggle.js" defer></script>
-    <script src="static/mobile-menu.js" defer></script>
+  <p>Переадресация... Если ничего не происходит, перейдите на <a href="/terms/">/terms/</a>.</p>
+  <script>
+    window.location.replace('/terms/');
+  </script>
 </body>
-
 </html>

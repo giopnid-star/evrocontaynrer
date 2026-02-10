@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -43,7 +43,7 @@
 
   <header>
     <div class="header-top">
-      <a href="index.html" class="logo" data-i18n="logo">Evrocontayner</a>
+      <a href="/" class="logo" data-i18n="logo">Evrocontayner</a>
       <div class="search-bar">
         <input type="text" id="search" placeholder="Поиск...">
         <select id="filter">
@@ -65,8 +65,8 @@
         </div>
         <button id="theme-toggle" class="theme-toggle-btn" title="Переключить тему">🌙</button>
         <div id="auth-controls" class="auth-container" style="display: flex; gap: 8px; align-items: center;">
-          <a href="login.html" class="auth-split" style="padding: 6px 12px; background: var(--accent-color); color: var(--bg-primary); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block;">🔐 Вход</a>
-          <a href="register.html" class="auth-split" style="padding: 6px 12px; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block;">📝 Регистрация</a>
+          <a href="/login/" class="auth-split" style="padding: 6px 12px; background: var(--accent-color); color: var(--bg-primary); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block;">🔐 Вход</a>
+          <a href="/register/" class="auth-split" style="padding: 6px 12px; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s ease; display: inline-block;">📝 Регистрация</a>
         </div>
         <div id="user-profile" style="display: none; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg-secondary); border-radius: 6px;">
           <div style="text-align: right; font-size: 0.8rem; min-width: 0;">
@@ -81,10 +81,10 @@
       <div class="nav-item">
         <button class="nav-btn" data-i18n="nav.products">Продукция</button>
         <div class="dropdown-menu">
-          <a href="products.html">Евро-контейнеры</a>
-          <a href="products.html">Модульные киоски</a>
-          <a href="products.html">Мобильные решения</a>
-          <a href="products.html">Комплектующие</a>
+          <a href="/products/">Евро-контейнеры</a>
+          <a href="/products/">Модульные киоски</a>
+          <a href="/products/">Мобильные решения</a>
+          <a href="/products/">Комплектующие</a>
         </div>
       </div>
       <div class="nav-item">
@@ -117,33 +117,33 @@
       <div class="nav-item">
         <button class="nav-btn" data-i18n="nav.company">Компания</button>
         <div class="dropdown-menu">
-          <a href="about.html" data-i18n="nav.about">О нас</a>
+          <a href="/about/" data-i18n="nav.about">О нас</a>
           <a href="#">История</a>
           <a href="#">Команда</a>
-          <a href="contact.html" data-i18n="nav.contacts">Контакты</a>
+          <a href="/contact/" data-i18n="nav.contacts">Контакты</a>
         </div>
       </div>
     </div>
   </header>
 
   <div class="sidebar">
-    <a href="services.html" data-tooltip="Услуги">
+    <a href="/services/" data-tooltip="Услуги">
       <span class="icon" aria-hidden="true">🛠️</span>
       <span class="label" data-i18n="sidebar.services">Услуги</span>
     </a>
-    <a href="gallery.html" data-tooltip="Галерея">
+    <a href="/gallery/" data-tooltip="Галерея">
       <span class="icon" aria-hidden="true">🖼️</span>
       <span class="label" data-i18n="sidebar.gallery">Галерея</span>
     </a>
-    <a href="products.html" data-tooltip="Продукция">
+    <a href="/products/" data-tooltip="Продукция">
       <span class="icon" aria-hidden="true">📦</span>
       <span class="label" data-i18n="sidebar.products">Продукция</span>
     </a>
-    <a href="about.html" data-tooltip="О нас">
+    <a href="/about/" data-tooltip="О нас">
       <span class="icon" aria-hidden="true">ℹ️</span>
       <span class="label" data-i18n="sidebar.about">О нас</span>
     </a>
-    <a href="contact.html" data-tooltip="Контакты">
+    <a href="/contact/" data-tooltip="Контакты">
       <span class="icon" aria-hidden="true">✉️</span>
       <span class="label" data-i18n="sidebar.contacts">Контакты</span>
     </a>
@@ -449,7 +449,7 @@
             </ul>
 
             <div class="containers-cta">
-              <a href="products.html" class="btn-primary" data-i18n="button.view-models">Смотреть модели</a>
+              <a href="/products/" class="btn-primary" data-i18n="button.view-models">Смотреть модели</a>
               <a href="products.html#calculator" class="btn-outline" data-i18n="button.request-quote">Запросить
                 расчёт</a>
             </div>
@@ -836,7 +836,7 @@
   <footer class="footer">
     <div class="footer-content">
       <h3>
-        <a href="terms.html" data-i18n="footer.terms">Условия пользования</a>
+        <a href="/terms/" data-i18n="footer.terms">Условия пользования</a>
         <button class="cookie-settings-inline" aria-label="Настройки cookie">Настройки cookie</button>
       </h3>
       <div class="footer-sections">

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const expandService = urlParams.get('expand');
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     e.preventDefault();
                     toggleCard(card);
                 });
-            } else if (window.location.pathname.includes('services.html')) {
+            } else if (window.location.pathname.includes('/services/')) {
                 // На странице services.html, но блока с полным описанием нет — создаём его динамически
                 const newFull = document.createElement('div');
                 newFull.className = 'service-full-desc';

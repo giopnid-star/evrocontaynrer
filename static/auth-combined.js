@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(){
+﻿document.addEventListener('DOMContentLoaded', function(){
   let combinedMenuCreated = false;
   
   function setup(containerSelector){
@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function(){
     combined.innerHTML = `
       <button class="auth-combined-btn" aria-haspopup="true" aria-expanded="false">🔐 Вход / 📝</button>
       <div class="auth-combined-menu" role="menu" aria-hidden="true">
-        <a href="login.html" role="menuitem">Войти</a>
-        <a href="register.html" role="menuitem">Регистрация</a>
+        <a href="/login/" role="menuitem">Войти</a>
+        <a href="/register/" role="menuitem">Регистрация</a>
       </div>
     `;
     container.appendChild(combined);

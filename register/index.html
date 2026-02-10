@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <title>Регистрация — Evrocontayner</title>
+  <link rel="stylesheet" href="/static/styles/style.css">
+  <script>
+    document.documentElement.style.display = 'none';
+  </script>
+  <script>
+    (function () {
+      const theme = localStorage.getItem('theme') || 'dark';
+      if (theme === 'dark') document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .register-container {
+      background: var(--bg-primary);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 420px;
+      width: 100%;
+      padding: 48px 32px;
+      animation: slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .register-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .register-header h1 {
+      font-size: 2rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .register-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      animation: fadeInDown 0.8s ease-out 0.1s both;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.2s; }
+    .form-group:nth-child(2) { animation-delay: 0.3s; }
+    .form-group:nth-child(3) { animation-delay: 0.4s; }
+    .form-group:nth-child(4) { animation-delay: 0.5s; }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      background: var(--bg-primary);
+      box-shadow: 0 0 0 3px rgba(232, 214, 97, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .form-group input::placeholder {
+      color: var(--text-light);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      margin-top: 12px;
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      animation: fadeInUp 0.6s ease-out 0.7s both;
+    }
+
+    .login-link a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .login-link a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .login-link a:hover::after {
+      width: 100%;
+    }
+
+    .error-message,
+    .success-message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      animation: slideDown 0.4s ease-out;
+      display: none;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .error-message {
+      background: rgba(220, 38, 38, 0.1);
+      color: #dc2626;
+      border-left: 4px solid #dc2626;
+    }
+
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border-left: 4px solid #22c55e;
+    }
+
+    .message.show {
+      display: block !important;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .submit-btn.loading {
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .register-container {
+        padding: 32px 20px;
+      }
+
+      .register-header h1 {
+        font-size: 1.6rem;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group input {
+        padding: 10px 12px;
+        font-size: 16px;
+      }
+
+      .submit-btn {
+        padding: 12px;
+        font-size: 0.95rem;
+      }
+
+      #error-block {
+        padding: 12px 14px !important;
+        margin-top: 16px !important;
+      }
+
+      #error-block h3 {
+        font-size: 0.95rem !important;
+        margin-bottom: 6px !important;
+      }
+
+      #error-text {
+        font-size: 0.9rem !important;
+      }
+    }
+  </style>
+  <script>
+    document.documentElement.style.display = '';
+  </script>
+</head>
+<body>
+  <div class="register-container">
+    <div class="register-header">
+      <h1>📋 Регистрация</h1>
+      <p>Создайте аккаунт на Evrocontayner</p>
+    </div>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="name">Ваше имя</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Иван Иванов"
+          required
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="••••••••"
+          required
+          minlength="6"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Подтвердите пароль</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="••••••••"
+          required
+          minlength="6"
+          autocomplete="off"
+        >
+      </div>
+
+      <button type="submit" class="submit-btn">Зарегистрироваться</button>
+    </form>
+
+    <p class="login-link">
+      Уже есть аккаунт? <a href="/login/">Войти</a>
+    </p>
+
+    <div id="error-block" style="display: none; margin-top: 24px; padding: 16px; background: #fee; border: 2px solid #f44; border-radius: 8px; color: #c33;">
+      <h3 style="margin: 0 0 8px 0; font-size: 1rem; color: #c33;">❌ Ошибка регистрации</h3>
+      <p id="error-text" style="margin: 0; font-size: 0.95rem;"></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const errorBlock = document.getElementById('error-block');
+    const errorText = document.getElementById('error-text');
+    const submitBtn = form.querySelector('.submit-btn');
+
+    function showError(message) {
+      errorText.textContent = message;
+      errorBlock.style.display = 'block';
+      errorBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideError() {
+      errorBlock.style.display = 'none';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideError();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (!name) {
+        showError('Пожалуйста, введите ваше имя');
+        return;
+      }
+
+      if (!email) {
+        showError('Пожалуйста, введите email');
+        return;
+      }
+
+      if (!password) {
+        showError('Пожалуйста, введите пароль');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('Пароль должен содержать минимум 6 символов');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showError('Пароли не совпадают');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Регистрация...';
+
+      try {
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, name })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          errorBlock.style.background = '#efe';
+          errorBlock.style.borderColor = '#4f4';
+          errorBlock.style.color = '#3a3';
+          errorBlock.querySelector('h3').textContent = '✅ Успешно!';
+          errorText.textContent = 'Регистрация завершена. Перенаправление...';
+          errorBlock.style.display = 'block';
+
+          localStorage.setItem('sessionToken', data.sessionToken);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          setTimeout(() => window.location.href = '/', 1500);
+        } else {
+          showError(data.error || 'Ошибка регистрации');
+        }
+      } catch (err) {
+        showError('Ошибка соединения: ' + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Зарегистрироваться';
+      }
+    });
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('focus', hideError);
+    });
+  </script>
+</body>
+</html>
