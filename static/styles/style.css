@@ -445,7 +445,7 @@ header.collapsed {
 /* Поиск: на desktop показывается справа под header-top, на mobile под header */
 .search-bar {
   position: absolute;
-  right: 12px;
+  right: 180px;
   top: calc(100% + 4px);
   display: flex;
   align-items: center;
@@ -466,6 +466,7 @@ header.collapsed {
 }
 
 .header-top.search-active .search-bar {
+  max-width: 2500px;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
