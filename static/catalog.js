@@ -278,17 +278,14 @@ function clearSearchUI() {
 function renderSuggestions(list) {
     if (!searchSuggestions) return;
     searchSuggestions.innerHTML = '';
-    list.forEach((item) => {
+    list.forEach((text) => {
         const item = document.createElement('li');
-        const link = document.createElement('a');
-        link.className = 'search-suggestion-link';
-        link.href = item.url;
-        link.textContent = item.title;
-        link.addEventListener('click', () => {
-            if (searchPanelInput) searchPanelInput.value = item.title;
+        item.textContent = text;
+        item.addEventListener('click', () => {
+            if (searchPanelInput) searchPanelInput.value = text;
+            runSearch();
         });
-        itemEl.appendChild(link);
-        searchSuggestions.appendChild(itemEl);
+        searchSuggestions.appendChild(item);
     });
 }
 
@@ -332,14 +329,7 @@ async function runSearch() {
 
     const index = await getSearchIndex();
     const results = index.filter(item => item.text.includes(query)).slice(0, 10);
-    const suggestions = [];
-    const seen = new Set();
-    results.forEach((item) => {
-        if (!seen.has(item.title)) {
-            seen.add(item.title);
-            suggestions.push({ title: item.title, url: item.url });
-        }
-    });
+    const suggestions = Array.from(new Set(results.map(item => item.title))).slice(0, 5);
 
     renderSuggestions(suggestions);
     renderResults(results, query);
@@ -397,4 +387,40 @@ serviceButtons.forEach(btn => {
         const title = card.querySelector('h3').textContent;
         alert(`Для услуги "${title}" требуется консультация. Пожалуйста, свяжитесь с нами через форму контактов.`);
     });
+});
+
+// Переместить дропдауны в hero-container
+document.addEventListener('DOMContentLoaded', function() {
+  const heroContainer = document.querySelector('.hero-container');
+  if (!heroContainer) return;
+
+  // Клонируем и добавляем дропдауны в hero-container
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(navItem => {
+    const dropdownMenu = navItem.querySelector('.dropdown-menu');
+    if (dropdownMenu) {
+      const clonedDropdown = dropdownMenu.cloneNode(true);
+      clonedDropdown.classList.add('dropdown-in-hero');
+      heroContainer.appendChild(clonedDropdown);
+      
+      const navBtn = navItem.querySelector('.nav-btn');
+      if (navBtn) {
+        navBtn.addEventListener('mouseenter', () => {
+          clonedDropdown.style.opacity = '1';
+          clonedDropdown.style.visibility = 'visible';
+          clonedDropdown.style.transform = 'translateY(0)';
+        });
+      }
+    }
+  });
+
+  // Скрывать дропдауны при выходе из hero
+  heroContainer.addEventListener('mouseleave', () => {
+    const dropdownsInHero = heroContainer.querySelectorAll('.dropdown-in-hero');
+    dropdownsInHero.forEach(dropdown => {
+      dropdown.style.opacity = '0';
+      dropdown.style.visibility = 'hidden';
+      dropdown.style.transform = 'translateY(-10px)';
+    });
+  });
 });

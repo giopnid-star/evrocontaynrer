@@ -133,6 +133,10 @@
     min-width: 180px;
   }
   
+  .dropdown-in-hero {
+    min-width: 170px !important;
+  }
+  
   .hero {
     margin-top: 140px;
     padding: 36px 24px;
@@ -314,6 +318,10 @@
   .nav-btn {
     font-size: 0.75rem;
     padding: 6px 8px;
+  }
+  
+  .dropdown-in-hero {
+    min-width: 140px !important;
   }
   
   .hero {
