@@ -429,8 +429,8 @@ header.collapsed {
   top: 50%;
   transform: translateY(-50%) scaleX(0);
   transform-origin: right center;
-  width: 320px;
-  max-width: 60vw;
+  width: 360px;
+  max-width: 70vw;
   opacity: 0;
   pointer-events: none;
   transition: transform 0.28s ease, opacity 0.28s ease;
@@ -442,6 +442,12 @@ header.collapsed {
   transform: translateY(-50%) scaleX(1);
 }
 
+.search-panel-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .search-panel-input {
   width: 100%;
   padding: 8px 12px;
@@ -451,11 +457,97 @@ header.collapsed {
   color: var(--text-primary);
   outline: none;
   box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+  flex: 1;
 }
 
 .search-panel-input:focus {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 2px rgba(232, 214, 97, 0.25);
+}
+
+.search-panel-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent-color);
+  color: var(--bg-primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.search-panel-btn:hover {
+  background: #f0e081;
+  transform: translateY(-1px);
+}
+
+.search-panel-dropdown {
+  margin-top: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+  display: none;
+}
+
+.search-panel.has-results .search-panel-dropdown {
+  display: block;
+}
+
+.search-suggestions {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+
+.search-suggestions li {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.search-suggestions li:hover {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.search-results {
+  border-top: 1px solid var(--border-color);
+  max-height: 260px;
+  overflow: auto;
+}
+
+.search-result-item {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.search-result-item:hover {
+  background: var(--hover-bg);
+}
+
+.search-result-title {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.search-result-snippet {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.search-empty {
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {

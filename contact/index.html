@@ -47,7 +47,14 @@
             <a href="/" class="logo" data-i18n="logo">Evrocontayner</a>
             <div class="top-right-controls">
         <div class="search-panel" aria-hidden="true">
-          <input type="text" class="search-panel-input" placeholder="&#1055;&#1086;&#1080;&#1089;&#1082;..." aria-label="&#1055;&#1086;&#1080;&#1089;&#1082;">
+          <div class="search-panel-row">
+            <input type="text" class="search-panel-input" placeholder="&#1055;&#1086;&#1080;&#1089;&#1082;..." aria-label="&#1055;&#1086;&#1080;&#1089;&#1082;">
+            <button class="search-panel-btn" type="button">&#1053;&#1072;&#1081;&#1090;&#1080;</button>
+          </div>
+          <div class="search-panel-dropdown" aria-live="polite">
+            <ul class="search-suggestions"></ul>
+            <div class="search-results"></div>
+          </div>
         </div>
         <button class="search-toggle-btn">&#128269;</button>
         <div class="lang-wrapper">

@@ -174,11 +174,156 @@ if (header && headerNav) {
     }, { passive: true });
 }
 
-// Toggle search panel
+// Toggle search panel + search logic
 const searchToggleBtn = document.querySelector('.search-toggle-btn');
 const headerTop = document.querySelector('.header-top');
 const searchPanel = document.querySelector('.search-panel');
 const searchPanelInput = document.querySelector('.search-panel-input');
+const searchPanelBtn = document.querySelector('.search-panel-btn');
+const searchSuggestions = document.querySelector('.search-suggestions');
+const searchResults = document.querySelector('.search-results');
+
+const SEARCH_INDEX_KEY = 'siteSearchIndex_v1';
+let searchIndexPromise = null;
+
+function normalizeText(value) {
+    return (value || '')
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function getSnippet(text, query) {
+    const clean = (text || '').replace(/\s+/g, ' ').trim();
+    if (!clean) return '';
+    const idx = clean.toLowerCase().indexOf(query);
+    if (idx === -1) return clean.slice(0, 160) + (clean.length > 160 ? '...' : '');
+    const start = Math.max(0, idx - 50);
+    const end = Math.min(clean.length, idx + 110);
+    const prefix = start > 0 ? '...' : '';
+    const suffix = end < clean.length ? '...' : '';
+    return prefix + clean.slice(start, end) + suffix;
+}
+
+async function buildSearchIndex() {
+    try {
+        const cached = localStorage.getItem(SEARCH_INDEX_KEY);
+        if (cached) return JSON.parse(cached);
+    } catch (e) {
+        // ignore cache errors
+    }
+
+    try {
+        const sitemapResponse = await fetch('/sitemap.xml', { cache: 'no-store' });
+        const sitemapText = await sitemapResponse.text();
+        const xml = new DOMParser().parseFromString(sitemapText, 'application/xml');
+        const urls = Array.from(xml.getElementsByTagName('loc'))
+            .map(node => (node.textContent || '').trim())
+            .filter(url => url && (url.endsWith('/') || url.endsWith('.html')));
+
+        const pages = await Promise.all(urls.map(async (url) => {
+            try {
+                const pageResponse = await fetch(url, { cache: 'no-store' });
+                const html = await pageResponse.text();
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const title = (doc.querySelector('title')?.textContent || url).trim();
+                const h1 = (doc.querySelector('h1')?.textContent || '').trim();
+                const desc = (doc.querySelector('meta[name="description"]')?.getAttribute('content') || '').trim();
+                const bodyText = (doc.body ? doc.body.textContent : '').replace(/\s+/g, ' ').trim();
+                const combined = normalizeText([title, h1, desc, bodyText].join(' ')).slice(0, 8000);
+                const snippet = desc || h1 || bodyText.slice(0, 200);
+                return { title, url, snippet, text: combined };
+            } catch (e) {
+                return null;
+            }
+        }));
+
+        const index = pages.filter(Boolean);
+        try {
+            localStorage.setItem(SEARCH_INDEX_KEY, JSON.stringify(index));
+        } catch (e) {
+            // ignore storage errors
+        }
+        return index;
+    } catch (e) {
+        return [];
+    }
+}
+
+async function getSearchIndex() {
+    if (!searchIndexPromise) {
+        searchIndexPromise = buildSearchIndex();
+    }
+    return searchIndexPromise;
+}
+
+function clearSearchUI() {
+    if (searchSuggestions) searchSuggestions.innerHTML = '';
+    if (searchResults) searchResults.innerHTML = '';
+    if (searchPanel) searchPanel.classList.remove('has-results');
+}
+
+function renderSuggestions(list) {
+    if (!searchSuggestions) return;
+    searchSuggestions.innerHTML = '';
+    list.forEach((text) => {
+        const item = document.createElement('li');
+        item.textContent = text;
+        item.addEventListener('click', () => {
+            if (searchPanelInput) searchPanelInput.value = text;
+            runSearch();
+        });
+        searchSuggestions.appendChild(item);
+    });
+}
+
+function renderResults(items, query) {
+    if (!searchResults) return;
+    searchResults.innerHTML = '';
+    if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'search-empty';
+        empty.textContent = 'Ничего не найдено.';
+        searchResults.appendChild(empty);
+        return;
+    }
+
+    items.forEach((item) => {
+        const link = document.createElement('a');
+        link.className = 'search-result-item';
+        link.href = item.url;
+
+        const title = document.createElement('span');
+        title.className = 'search-result-title';
+        title.textContent = item.title;
+
+        const snippet = document.createElement('span');
+        snippet.className = 'search-result-snippet';
+        snippet.textContent = getSnippet(item.snippet, query);
+
+        link.appendChild(title);
+        link.appendChild(snippet);
+        searchResults.appendChild(link);
+    });
+}
+
+async function runSearch() {
+    if (!searchPanelInput) return;
+    const query = normalizeText(searchPanelInput.value);
+    if (query.length < 2) {
+        clearSearchUI();
+        return;
+    }
+
+    const index = await getSearchIndex();
+    const results = index.filter(item => item.text.includes(query)).slice(0, 10);
+    const suggestions = Array.from(new Set(results.map(item => item.title))).slice(0, 5);
+
+    renderSuggestions(suggestions);
+    renderResults(results, query);
+
+    if (searchPanel) searchPanel.classList.add('has-results');
+}
 
 if (searchToggleBtn && headerTop) {
     searchToggleBtn.addEventListener('click', (e) => {
@@ -188,6 +333,8 @@ if (searchToggleBtn && headerTop) {
         if (searchPanel) searchPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
         if (isOpen && searchPanelInput) {
             setTimeout(() => searchPanelInput.focus(), 120);
+        } else {
+            clearSearchUI();
         }
     });
 
@@ -195,8 +342,28 @@ if (searchToggleBtn && headerTop) {
         if (!e.target.closest('.header-top')) {
             headerTop.classList.remove('search-active');
             if (searchPanel) searchPanel.setAttribute('aria-hidden', 'true');
+            clearSearchUI();
         }
     });
+}
+
+if (searchPanelInput) {
+    let typingTimer = null;
+    searchPanelInput.addEventListener('input', () => {
+        if (typingTimer) clearTimeout(typingTimer);
+        typingTimer = setTimeout(runSearch, 200);
+    });
+
+    searchPanelInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            runSearch();
+        }
+    });
+}
+
+if (searchPanelBtn) {
+    searchPanelBtn.addEventListener('click', runSearch);
 }
 
 // Обработчик кнопок "Подробнее" в услугах
