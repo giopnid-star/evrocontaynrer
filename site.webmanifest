@@ -1,0 +1,33 @@
+{
+  "name": "Evrocontayner - Киоски и контейнеры",
+  "short_name": "Evrocontayner",
+  "description": "Производство киосков, павильонов и контейнеров по всему Казахстану",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#ff6600",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/6.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
