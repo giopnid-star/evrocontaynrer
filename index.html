@@ -857,8 +857,70 @@
         <p>Чтобы улучшить работу сайта и запомнить ваши настройки, мы используем файлы cookie. Продолжая, вы соглашаетесь с использованием cookie.</p>
       </div>
       <div class="cookie-actions">
-        <button id="cookie-accept" class="btn btn-primary">Принять</button>
-        <button id="cookie-settings" class="btn btn-outline">Настройки</button>
+        <button id="cookie-accept" class="btn btn-primary">Принять все</button>
+        <button id="cookie-settings" class="btn btn-outline">Настроить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Settings Modal -->
+  <div id="cookie-settings-modal" class="cookie-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title" style="display:none;">
+    <div class="cookie-modal-overlay"></div>
+    <div class="cookie-modal-content">
+      <div class="cookie-modal-header">
+        <h2 id="cookie-modal-title">Настройки конфиденциальности</h2>
+        <button class="cookie-modal-close" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="cookie-modal-body">
+        <p class="cookie-modal-intro">Мы используем файлы cookie для улучшения вашего опыта на сайте. Выберите, какие типы cookie вы хотите разрешить:</p>
+        
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle-label">
+              <input type="checkbox" checked disabled class="cookie-toggle-input">
+              <span class="cookie-toggle-slider"></span>
+              <span class="cookie-category-title">Необходимые cookies</span>
+            </label>
+          </div>
+          <p class="cookie-category-desc">Эти файлы cookie необходимы для работы сайта и не могут быть отключены. Они включают настройки языка, темы и согласие на использование cookie.</p>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle-label">
+              <input type="checkbox" id="cookie-functional" class="cookie-toggle-input">
+              <span class="cookie-toggle-slider"></span>
+              <span class="cookie-category-title">Функциональные cookies</span>
+            </label>
+          </div>
+          <p class="cookie-category-desc">Эти файлы cookie позволяют сайту запоминать ваши предпочтения (например, имя пользователя, регион) и предоставлять расширенные функции.</p>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle-label">
+              <input type="checkbox" id="cookie-analytics" class="cookie-toggle-input">
+              <span class="cookie-toggle-slider"></span>
+              <span class="cookie-category-title">Аналитические cookies</span>
+            </label>
+          </div>
+          <p class="cookie-category-desc">Эти файлы cookie помогают нам понять, как посетители взаимодействуют с сайтом, собирая и предоставляя информацию анонимно.</p>
+        </div>
+
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <label class="cookie-toggle-label">
+              <input type="checkbox" id="cookie-marketing" class="cookie-toggle-input">
+              <span class="cookie-toggle-slider"></span>
+              <span class="cookie-category-title">Маркетинговые cookies</span>
+            </label>
+          </div>
+          <p class="cookie-category-desc">Эти файлы cookie используются для отслеживания посетителей на веб-сайтах для отображения релевантной рекламы.</p>
+        </div>
+      </div>
+      <div class="cookie-modal-footer">
+        <button id="cookie-save-settings" class="btn btn-primary">Сохранить настройки</button>
+        <button id="cookie-accept-all" class="btn btn-outline">Принять все</button>
       </div>
     </div>
   </div>
