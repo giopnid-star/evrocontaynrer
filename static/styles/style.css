@@ -484,7 +484,8 @@ header.collapsed {
 
 .search-panel-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
+  transform: translateY(8px);
   right: 0;
   left: 0;
   background: var(--bg-secondary);
