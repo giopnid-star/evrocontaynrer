@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+backups-server/
+data/backups/
+.git/
+.github/
+.vscode/
+*.md
+docs/
+scripts/
+test-api.js
