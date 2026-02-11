@@ -442,7 +442,7 @@ app.get('/health', (req, res) => {
 });
 
 // Serve static files from root directory (HTML, CSS, JS, images)
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, { index: 'index.html' }));
 
 app.listen(PORT, () => {
   console.log(`🚀 Mail & DB server listening on http://localhost:${PORT}`);
