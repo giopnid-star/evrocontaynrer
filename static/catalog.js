@@ -278,14 +278,17 @@ function clearSearchUI() {
 function renderSuggestions(list) {
     if (!searchSuggestions) return;
     searchSuggestions.innerHTML = '';
-    list.forEach((text) => {
+    list.forEach((item) => {
         const item = document.createElement('li');
-        item.textContent = text;
-        item.addEventListener('click', () => {
-            if (searchPanelInput) searchPanelInput.value = text;
-            runSearch();
+        const link = document.createElement('a');
+        link.className = 'search-suggestion-link';
+        link.href = item.url;
+        link.textContent = item.title;
+        link.addEventListener('click', () => {
+            if (searchPanelInput) searchPanelInput.value = item.title;
         });
-        searchSuggestions.appendChild(item);
+        itemEl.appendChild(link);
+        searchSuggestions.appendChild(itemEl);
     });
 }
 
@@ -329,7 +332,14 @@ async function runSearch() {
 
     const index = await getSearchIndex();
     const results = index.filter(item => item.text.includes(query)).slice(0, 10);
-    const suggestions = Array.from(new Set(results.map(item => item.title))).slice(0, 5);
+    const suggestions = [];
+    const seen = new Set();
+    results.forEach((item) => {
+        if (!seen.has(item.title)) {
+            seen.add(item.title);
+            suggestions.push({ title: item.title, url: item.url });
+        }
+    });
 
     renderSuggestions(suggestions);
     renderResults(results, query);
