@@ -16,7 +16,7 @@
   --sidebar-link-bg: #d4dce8;
 }
 
-body.dark-mode {
+html.dark-mode {
   /* Темная тема */
   --bg-primary: #1a1a1a;
   --bg-secondary: #252525;

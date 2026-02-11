@@ -13,29 +13,17 @@
   <link rel="stylesheet" href="static/styles/style.css">
   <link rel="stylesheet" href="static/styles/theme-variables.css">
   <script>
-    // Hide body until theme is applied to prevent flash
-    document.documentElement.style.display = 'none';
-  </script>
-  <script>
-    // Быстро применить тему перед рендерингом контента
+    // Применить тему ДО рендеринга страницы (убрать мерцание)
     (function () {
       const theme = localStorage.getItem('theme') || 'dark';
       if (theme === 'dark') {
         document.documentElement.classList.add('dark-mode');
       }
-    })();
-  </script>
-  <script>
-    // Быстрая установка языка перед рендерингом (по умолчанию русский)
-    (function () {
+      // Быстрая установка языка
       const lang = localStorage.getItem('lang') || 'ru';
       document.documentElement.setAttribute('data-lang', lang);
       document.documentElement.lang = (lang === 'kz') ? 'kk' : 'ru';
     })();
-  </script>
-  <script>
-    // Show body after theme is applied
-    document.documentElement.style.display = '';
   </script>
 </head>
 

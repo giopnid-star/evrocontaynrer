@@ -14,17 +14,13 @@ function getCurrentTheme() {
 // Применить тему
 function applyTheme(theme) {
     const root = document.documentElement;
-    const body = document.body;
     const themeBtn = document.getElementById('theme-toggle');
 
     if (theme === 'dark') {
-        // Добавляем класс и на <html>, и на <body> чтобы избежать мерцания при прелоадере
-        if (root) root.classList.add('dark-mode');
-        if (body) body.classList.add('dark-mode');
+        root.classList.add('dark-mode');
         if (themeBtn) themeBtn.textContent = '☀️';
     } else {
-        if (root) root.classList.remove('dark-mode');
-        if (body) body.classList.remove('dark-mode');
+        root.classList.remove('dark-mode');
         if (themeBtn) themeBtn.textContent = '🌙';
     }
 
