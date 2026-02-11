@@ -442,7 +442,7 @@ header.collapsed {
 }
 
 /* Поиск: по умолчанию спрятан и позиционируется справа рядом с кнопками */
-/* Поиск: на desktop показывается inline слева в header-top, на mobile под header */
+/* Поиск: на desktop показывается inline справа в header-top, на mobile под header */
 .search-bar {
   display: flex;
   align-items: center;
@@ -457,7 +457,7 @@ header.collapsed {
   opacity: 0;
   pointer-events: none;
   transform: scaleX(0);
-  transform-origin: left center;
+  transform-origin: right center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
