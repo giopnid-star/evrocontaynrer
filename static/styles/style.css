@@ -466,7 +466,6 @@ header.collapsed {
 }
 
 .header-top.search-active .search-bar {
-  max-width: 2500px;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
