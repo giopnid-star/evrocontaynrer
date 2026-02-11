@@ -174,6 +174,31 @@ if (header && headerNav) {
     }, { passive: true });
 }
 
+// Toggle search panel
+const searchToggleBtn = document.querySelector('.search-toggle-btn');
+const headerTop = document.querySelector('.header-top');
+const searchPanel = document.querySelector('.search-panel');
+const searchPanelInput = document.querySelector('.search-panel-input');
+
+if (searchToggleBtn && headerTop) {
+    searchToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        headerTop.classList.toggle('search-active');
+        const isOpen = headerTop.classList.contains('search-active');
+        if (searchPanel) searchPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        if (isOpen && searchPanelInput) {
+            setTimeout(() => searchPanelInput.focus(), 120);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.header-top')) {
+            headerTop.classList.remove('search-active');
+            if (searchPanel) searchPanel.setAttribute('aria-hidden', 'true');
+        }
+    });
+}
+
 // Обработчик кнопок "Подробнее" в услугах
 const serviceButtons = document.querySelectorAll('.service-btn');
 serviceButtons.forEach(btn => {
