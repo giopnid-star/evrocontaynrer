@@ -426,9 +426,9 @@ header.collapsed {
 .search-panel {
   position: absolute;
   right: 420px;
-  top: 50%;
-  transform: translateY(-50%) scaleX(0);
-  transform-origin: right center;
+  top: calc(100% + 8px);
+  transform: translateY(-8px) scaleX(0);
+  transform-origin: right top;
   width: 360px;
   max-width: 70vw;
   opacity: 0;
@@ -439,7 +439,7 @@ header.collapsed {
 .header-top.search-active .search-panel {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(-50%) scaleX(1);
+  transform: translateY(0) scaleX(1);
 }
 
 .search-panel-row {
@@ -507,11 +507,13 @@ header.collapsed {
   font-size: 0.85rem;
   color: var(--text-secondary);
   cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 
 .search-suggestions li:hover {
   background: var(--hover-bg);
   color: var(--text-primary);
+  transform: translateX(4px);
 }
 
 .search-results {

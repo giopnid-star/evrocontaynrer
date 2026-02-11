@@ -183,7 +183,7 @@ const searchPanelBtn = document.querySelector('.search-panel-btn');
 const searchSuggestions = document.querySelector('.search-suggestions');
 const searchResults = document.querySelector('.search-results');
 
-const SEARCH_INDEX_KEY = 'siteSearchIndex_v1';
+const SEARCH_INDEX_KEY = 'siteSearchIndex_v2';
 let searchIndexPromise = null;
 
 function normalizeText(value) {
@@ -197,9 +197,9 @@ function getSnippet(text, query) {
     const clean = (text || '').replace(/\s+/g, ' ').trim();
     if (!clean) return '';
     const idx = clean.toLowerCase().indexOf(query);
-    if (idx === -1) return clean.slice(0, 160) + (clean.length > 160 ? '...' : '');
-    const start = Math.max(0, idx - 50);
-    const end = Math.min(clean.length, idx + 110);
+    if (idx === -1) return clean.slice(0, 90) + (clean.length > 90 ? '...' : '');
+    const start = Math.max(0, idx - 30);
+    const end = Math.min(clean.length, idx + 70);
     const prefix = start > 0 ? '...' : '';
     const suffix = end < clean.length ? '...' : '';
     return prefix + clean.slice(start, end) + suffix;
@@ -226,19 +226,31 @@ async function buildSearchIndex() {
                 const pageResponse = await fetch(url, { cache: 'no-store' });
                 const html = await pageResponse.text();
                 const doc = new DOMParser().parseFromString(html, 'text/html');
-                const title = (doc.querySelector('title')?.textContent || url).trim();
-                const h1 = (doc.querySelector('h1')?.textContent || '').trim();
-                const desc = (doc.querySelector('meta[name="description"]')?.getAttribute('content') || '').trim();
-                const bodyText = (doc.body ? doc.body.textContent : '').replace(/\s+/g, ' ').trim();
-                const combined = normalizeText([title, h1, desc, bodyText].join(' ')).slice(0, 8000);
-                const snippet = desc || h1 || bodyText.slice(0, 200);
-                return { title, url, snippet, text: combined };
+                const cards = Array.from(doc.querySelectorAll('.service-card'));
+                if (!cards.length) return [];
+
+                return cards.map((card) => {
+                    const title = (card.querySelector('h3')?.textContent || '').trim();
+                    const desc = (card.querySelector('p')?.textContent || '').trim();
+                    const listText = Array.from(card.querySelectorAll('li'))
+                        .map(li => li.textContent.trim())
+                        .join(' ');
+                    const text = normalizeText([title, desc, listText].join(' ')).slice(0, 3000);
+                    const snippet = [desc, listText].filter(Boolean).join(' ').slice(0, 200);
+                    const anchor = card.id ? `#${card.id}` : '';
+                    return {
+                        title: title || 'Услуга',
+                        url: `${url}${anchor}`,
+                        snippet,
+                        text
+                    };
+                });
             } catch (e) {
-                return null;
+                return [];
             }
         }));
 
-        const index = pages.filter(Boolean);
+        const index = pages.flat().filter(Boolean);
         try {
             localStorage.setItem(SEARCH_INDEX_KEY, JSON.stringify(index));
         } catch (e) {
