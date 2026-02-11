@@ -436,15 +436,15 @@ app.post('/api/backup', async (req, res) => {
   }
 });
 
-// Serve static files (MUST be last, after all API endpoints)
-app.use(express.static(path.join(__dirname), {
-  skip: (req) => req.path.startsWith('/api')
-}));
-
-// Health check endpoint
+// Health check endpoint (MUST be before static files)
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', database: 'PostgreSQL', timestamp: new Date().toISOString() });
 });
+
+// Serve static files (after all API endpoints)
+app.use(express.static(path.join(__dirname), {
+  skip: (req) => req.path.startsWith('/api')
+}));
 
 app.listen(PORT, () => {
   console.log(`🚀 Mail & DB server listening on http://localhost:${PORT}`);
