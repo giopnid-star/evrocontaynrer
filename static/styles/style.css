@@ -442,8 +442,11 @@ header.collapsed {
 }
 
 /* Поиск: по умолчанию спрятан и позиционируется справа рядом с кнопками */
-/* Поиск: на desktop показывается inline справа в header-top, на mobile под header */
+/* Поиск: на desktop показывается справа под header-top, на mobile под header */
 .search-bar {
+  position: absolute;
+  right: 12px;
+  top: calc(100% + 4px);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -451,32 +454,32 @@ header.collapsed {
   background: var(--bg-secondary);
   border-radius: 10px;
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-  width: 0;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  width: 500px;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
-  transform: scaleX(0);
-  transform-origin: right center;
+  transform: translateY(-10px);
+  transform-origin: top right;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1400;
 }
 
 .header-top.search-active .search-bar {
-  width: 500px;
   opacity: 1;
   pointer-events: auto;
-  transform: scaleX(1);
+  transform: translateY(0);
 }
 
 /* На средних экранах уменьшаем ширину поисковика */
 @media (max-width: 1200px) {
-  .header-top.search-active .search-bar {
+  .search-bar {
     width: 400px;
   }
 }
 
 @media (max-width: 900px) {
-  .header-top.search-active .search-bar {
+  .search-bar {
     width: 350px;
   }
 }
@@ -500,9 +503,9 @@ header.collapsed {
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
     opacity: 0;
     pointer-events: none;
-    transform: none;
+    transform: translateY(-10px);
     transform-origin: top center;
-    transition: opacity 0.18s ease;
+    transition: opacity 0.18s ease, transform 0.18s ease;
     z-index: 1400;
   }
   
@@ -514,7 +517,7 @@ header.collapsed {
     width: auto;
     opacity: 1;
     pointer-events: auto;
-    transform: none;
+    transform: translateY(0);
   }
   
   .search-bar input,
