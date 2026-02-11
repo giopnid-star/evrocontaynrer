@@ -442,64 +442,81 @@ header.collapsed {
 }
 
 /* Поиск: по умолчанию спрятан и позиционируется справа рядом с кнопками */
-/* Поиск: по умолчанию спрятан и позиционируется в отдельной ячейке под header-top
-   — при открытии увеличиваем отступ header, чтобы панель не перекрывала контент */
+/* Поиск: на desktop показывается inline справа в header-top, на mobile под header */
 .search-bar {
-  position: absolute;
-  left: auto;
-  right: 12px;
-  top: calc(100% + 4px);
-  transform: none;
   display: flex;
   align-items: center;
   gap: 10px;
-  opacity: 0;
-  pointer-events: none;
-  width: 500px;
-  max-width: calc(100vw - 24px);
-  overflow: hidden;
-  padding: 12px;
+  padding: 10px 14px;
   background: var(--bg-secondary);
   border-radius: 10px;
   border: 1px solid var(--border-color);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-  transition: opacity 0.22s ease, transform 0.22s ease, padding 0.2s ease;
-  transform-origin: top right;
-  z-index: 1400;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header-top.search-active .search-bar {
+  width: 500px;
   opacity: 1;
   pointer-events: auto;
+  transform: scaleX(1);
 }
 
-/* Поведение поиска на мобильных: показывать в аккуратной ячейке ниже header, не перекрывая контент */
+/* На средних экранах уменьшаем ширину поисковика */
+@media (max-width: 1200px) {
+  .header-top.search-active .search-bar {
+    width: 400px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-top.search-active .search-bar {
+    width: 350px;
+  }
+}
+
+/* Поведение поиска на мобильных: показывать в отдельной ячейке под header */
 @media (max-width: 768px) {
   .header-top {
     padding: 10px 12px;
   }
-  .header-top.search-active {
-    padding-bottom: 72px;
-  }
+  
   .search-bar {
+    position: absolute;
     left: 12px;
     right: 12px;
+    top: calc(100% + 4px);
     width: auto;
     padding: 10px;
     gap: 8px;
     background: var(--bg-secondary);
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-    display: flex !important;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease;
+    transform: none;
     transform-origin: top center;
+    transition: opacity 0.18s ease;
+    z-index: 1400;
   }
+  
+  .header-top.search-active {
+    padding-bottom: 72px;
+  }
+  
   .header-top.search-active .search-bar {
+    width: auto;
     opacity: 1;
     pointer-events: auto;
+    transform: none;
   }
+  
   .search-bar input,
   .search-bar select {
     flex: 1;
@@ -677,13 +694,6 @@ header.collapsed .nav-item:hover .dropdown-menu {
 }
 
 /* Поиск */
-.search-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
 .search-bar input,
 .search-bar select {
   padding: 8px 12px;
@@ -692,6 +702,7 @@ header.collapsed .nav-item:hover .dropdown-menu {
   outline: none;
   font-size: 0.9rem;
   min-width: 0;
+  flex: 1;
   background: var(--input-bg);
   color: var(--text-primary);
   transition: all 0.3s ease;
@@ -714,6 +725,8 @@ header.collapsed .nav-item:hover .dropdown-menu {
   background-position: right 8px center;
   background-size: 16px;
   padding-right: 28px;
+  flex: 0 1 auto;
+  min-width: 120px;
 }
 
 .search-bar button {
@@ -725,6 +738,8 @@ header.collapsed .nav-item:hover .dropdown-menu {
   cursor: pointer;
   transition: 0.3s;
   font-weight: 600;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .search-bar button:hover {
