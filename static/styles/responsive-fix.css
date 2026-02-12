@@ -358,33 +358,6 @@
   }
 }
 
-/* Fix header overflow on small screens */
-@media (max-width: 900px) {
-  header {
-    overflow: visible;
-  }
-  
-  .header-top {
-    overflow: visible;
-  }
-  
-  .header-nav {
-    overflow: visible;
-    overflow-x: hidden;
-    flex-wrap: wrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  
-  .header-nav::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .dropdown-menu {
-    z-index: 3000 !important;
-  }
-}
-
 /* Fix sidebar on mobile */
 @media (max-width: 768px) {
   .sidebar {
@@ -401,14 +374,6 @@
   
   .sidebar .icon {
     font-size: 1.2rem;
-  }
-  
-  .hero {
-    overflow: visible;
-  }
-  
-  .dropdown-menu {
-    z-index: 3000 !important;
   }
   
   main {
