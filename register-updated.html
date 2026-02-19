@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="shortcut icon" type="image/x-icon" href="/images/6.png">
-  <title>Авторизация — Evrocontayner</title>
+  <title>Регистрация — Evrocontayner</title>
   <link rel="stylesheet" href="/static/styles/style.css">
   <link rel="stylesheet" href="/static/styles/theme-variables.css">
     <link rel="stylesheet" href="/static/styles/responsive-fix.css">
@@ -27,7 +27,7 @@
   </script>
   <style>
     body {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -36,7 +36,7 @@
       overflow: hidden;
     }
 
-    .login-container {
+    .register-container {
       background: var(--bg-primary);
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -57,19 +57,19 @@
       }
     }
 
-    .login-header {
+    .register-header {
       text-align: center;
       margin-bottom: 32px;
     }
 
-    .login-header h1 {
+    .register-header h1 {
       font-size: 2rem;
       color: var(--text-primary);
       margin-bottom: 8px;
       animation: fadeInDown 0.8s ease-out;
     }
 
-    .login-header p {
+    .register-header p {
       color: var(--text-secondary);
       font-size: 0.95rem;
       animation: fadeInDown 0.8s ease-out 0.1s both;
@@ -105,6 +105,7 @@
     .form-group:nth-child(1) { animation-delay: 0.2s; }
     .form-group:nth-child(2) { animation-delay: 0.3s; }
     .form-group:nth-child(3) { animation-delay: 0.4s; }
+    .form-group:nth-child(4) { animation-delay: 0.5s; }
 
     .form-group label {
       display: block;
@@ -129,9 +130,9 @@
 
     .form-group input:focus {
       outline: none;
-      border-color: #f5576c;
+      border-color: var(--accent-color);
       background: var(--bg-primary);
-      box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
+      box-shadow: 0 0 0 3px rgba(232, 214, 97, 0.1);
       transform: translateY(-2px);
     }
 
@@ -139,58 +140,34 @@
       color: var(--text-light);
     }
 
-    .remember-forgot {
+    .remember-checkbox {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
-      font-size: 0.9rem;
-      animation: fadeInUp 0.6s ease-out 0.5s both;
-    }
-
-    .remember-forgot label {
-      display: flex;
-      align-items: center;
       color: var(--text-secondary);
       cursor: pointer;
       transition: color 0.3s ease;
+      animation: fadeInUp 0.6s ease-out 0.5s both;
     }
 
-    .remember-forgot label:hover {
-      color: var(--text-primary);
-    }
-
-    .remember-forgot input[type="checkbox"] {
-      margin-right: 6px;
+    .remember-checkbox label {
+      display: flex;
+      align-items: center;
+      margin: 0;
       cursor: pointer;
     }
 
-    .remember-forgot a {
-      color: #f5576c;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .remember-forgot a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: #f5576c;
-      transition: width 0.3s ease;
-    }
-
-    .remember-forgot a:hover::after {
-      width: 100%;
+    .remember-checkbox input[type="checkbox"] {
+      margin-right: 8px;
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
     }
 
     .submit-btn {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       border: none;
       border-radius: 8px;
@@ -217,7 +194,7 @@
 
     .submit-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 24px rgba(245, 87, 108, 0.4);
+      box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
     }
 
     .submit-btn:hover::before {
@@ -234,7 +211,7 @@
       transform: none;
     }
 
-    .register-link {
+    .login-link {
       text-align: center;
       margin-top: 20px;
       color: var(--text-secondary);
@@ -242,26 +219,26 @@
       animation: fadeInUp 0.6s ease-out 0.7s both;
     }
 
-    .register-link a {
-      color: #f5576c;
+    .login-link a {
+      color: var(--accent-color);
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
       position: relative;
     }
 
-    .register-link a::after {
+    .login-link a::after {
       content: '';
       position: absolute;
       bottom: -2px;
       left: 0;
       width: 0;
       height: 2px;
-      background: #f5576c;
+      background: var(--accent-color);
       transition: width 0.3s ease;
     }
 
-    .register-link a:hover::after {
+    .login-link a:hover::after {
       width: 100%;
     }
 
@@ -323,11 +300,11 @@
     }
 
     @media (max-width: 640px) {
-      .login-container {
+      .register-container {
         padding: 32px 20px;
       }
 
-      .login-header h1 {
+      .register-header h1 {
         font-size: 1.6rem;
       }
 
@@ -343,12 +320,6 @@
       .submit-btn {
         padding: 12px;
         font-size: 0.95rem;
-      }
-
-      .remember-forgot {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
       }
 
       #error-block {
@@ -368,13 +339,25 @@
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <div class="login-header">
-      <h1>Вход</h1>
-      <p>Авторизуйтесь на вашем аккаунте</p>
+  <div class="register-container">
+    <div class="register-header">
+      <h1>Регистрация</h1>
+      <p>Создайте аккаунт на Evrocontayner</p>
     </div>
 
-    <form id="loginForm">
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="name">Ваше имя</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Иван Иванов"
+          required
+          autocomplete="off"
+        >
+      </div>
+
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -395,33 +378,46 @@
           name="password"
           placeholder="••••••••"
           required
+          minlength="6"
           autocomplete="off"
         >
       </div>
 
-      <div class="remember-forgot">
-        <label>
-          <input type="checkbox" id="rememberMe" name="rememberMe">
-          Запомнить меня
-        </label>
-        <a href="#forgot">Забыли пароль?</a>
+      <div class="form-group">
+        <label for="confirmPassword">Подтвердите пароль</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          placeholder="••••••••"
+          required
+          minlength="6"
+          autocomplete="off"
+        >
       </div>
 
-      <button type="submit" class="submit-btn">Войти</button>
+      <div class="remember-checkbox">
+        <label>
+          <input type="checkbox" id="rememberMe" name="rememberMe">
+          Запомнить меня (90 дней)
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn">Зарегистрироваться</button>
     </form>
 
-    <p class="register-link">
-      Нет аккаунта? <a href="/register/">Зарегистрироваться</a>
+    <p class="login-link">
+      Уже есть аккаунт? <a href="/login/">Войти</a>
     </p>
 
     <div id="error-block" style="display: none; margin-top: 24px; padding: 16px; background: #fee; border: 2px solid #f44; border-radius: 8px; color: #c33;">
-      <h3 style="margin: 0 0 8px 0; font-size: 1rem; color: #c33;">❌ Ошибка входа</h3>
+      <h3 style="margin: 0 0 8px 0; font-size: 1rem; color: #c33;">❌ Ошибка регистрации</h3>
       <p id="error-text" style="margin: 0; font-size: 0.95rem;"></p>
     </div>
   </div>
 
   <script>
-    const form = document.getElementById('loginForm');
+    const form = document.getElementById('registerForm');
     const errorBlock = document.getElementById('error-block');
     const errorText = document.getElementById('error-text');
     const submitBtn = form.querySelector('.submit-btn');
@@ -437,6 +433,7 @@
       errorBlock.style.display = 'none';
     }
 
+    // Restore saved email if exists
     const savedEmail = localStorage.getItem('rememberedEmail');
     if (savedEmail) {
       document.getElementById('email').value = savedEmail;
@@ -447,9 +444,16 @@
       e.preventDefault();
       hideError();
 
+      const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
       const rememberMe = rememberMeCheckbox.checked;
+
+      if (!name) {
+        showError('Пожалуйста, введите ваше имя');
+        return;
+      }
 
       if (!email) {
         showError('Пожалуйста, введите email');
@@ -461,47 +465,57 @@
         return;
       }
 
-      if (rememberMeCheckbox.checked) {
-        localStorage.setItem('rememberedEmail', email);
-      } else {
-        localStorage.removeItem('rememberedEmail');
+      if (password.length < 6) {
+        showError('Пароль должен содержать минимум 6 символов');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showError('Пароли не совпадают');
+        return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Вход...';
+      submitBtn.innerHTML = '<span class="spinner"></span>Регистрация...';
 
       try {
-        const response = await fetch('/api/login', {
+        const response = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, rememberMe })
+          body: JSON.stringify({ email, password, name, rememberMe })
         });
 
         const data = await response.json();
 
         if (response.ok) {
+          if (rememberMe) {
+            localStorage.setItem('rememberedEmail', email);
+          } else {
+            localStorage.removeItem('rememberedEmail');
+          }
+
           errorBlock.style.background = '#efe';
           errorBlock.style.borderColor = '#4f4';
           errorBlock.style.color = '#3a3';
           errorBlock.querySelector('h3').textContent = 'Успешно!';
-          errorText.textContent = 'Вы вошли в аккаунт. Перенаправление...';
+          errorText.textContent = 'Регистрация завершена. Автоматический вход...';
           errorBlock.style.display = 'block';
 
           localStorage.setItem('sessionToken', data.sessionToken);
           localStorage.setItem('user', JSON.stringify(data.user));
           setTimeout(() => window.location.href = '/', 1500);
         } else {
-          showError(data.error || 'Ошибка входа');
+          showError(data.error || 'Ошибка регистрации');
         }
       } catch (err) {
         showError('Ошибка соединения: ' + err.message);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Войти';
+        submitBtn.innerHTML = 'Зарегистрироваться';
       }
     });
 
-    document.querySelectorAll('input[type="email"], input[type="password"]').forEach(input => {
+    document.querySelectorAll('input').forEach(input => {
       input.addEventListener('focus', hideError);
     });
   </script>

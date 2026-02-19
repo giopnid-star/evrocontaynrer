@@ -371,7 +371,12 @@
           autocomplete="off"
         >
       </div>
-
+      <div style=\"display: flex; align-items: center; margin-bottom: 20px; animation: fadeInUp 0.6s ease-out 0.5s both;\">
+        <label style=\"display: flex; align-items: center; color: var(--text-secondary); cursor: pointer; transition: color 0.3s ease; margin: 0;\">
+          <input type=\"checkbox\" id=\"rememberMe\" name=\"rememberMe\" style=\"margin-right: 8px; cursor: pointer; width: 18px; height: 18px;\">
+          Запомнить меня (90 дней)
+        </label>
+      </div>
       <button type="submit" class="submit-btn">Зарегистрироваться</button>
     </form>
 
@@ -390,6 +395,7 @@
     const errorBlock = document.getElementById('error-block');
     const errorText = document.getElementById('error-text');
     const submitBtn = form.querySelector('.submit-btn');
+    const rememberMeCheckbox = document.getElementById('rememberMe');
 
     function showError(message) {
       errorText.textContent = message;
@@ -401,6 +407,13 @@
       errorBlock.style.display = 'none';
     }
 
+    // Restore saved email if exists
+    const savedEmail = localStorage.getItem('rememberedEmail');
+    if (savedEmail) {
+      document.getElementById('email').value = savedEmail;
+      rememberMeCheckbox.checked = true;
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       hideError();
@@ -409,6 +422,7 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
+      const rememberMe = rememberMeCheckbox.checked;
 
       if (!name) {
         showError('Пожалуйста, введите ваше имя');
@@ -442,17 +456,23 @@
         const response = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password, name })
+          body: JSON.stringify({ email, password, name, rememberMe })
         });
 
         const data = await response.json();
 
         if (response.ok) {
+          if (rememberMe) {
+            localStorage.setItem('rememberedEmail', email);
+          } else {
+            localStorage.removeItem('rememberedEmail');
+          }
+
           errorBlock.style.background = '#efe';
           errorBlock.style.borderColor = '#4f4';
           errorBlock.style.color = '#3a3';
           errorBlock.querySelector('h3').textContent = 'Успешно!';
-          errorText.textContent = 'Регистрация завершена. Перенаправление...';
+          errorText.textContent = 'Регистрация завершена. Автоматический вход...';
           errorBlock.style.display = 'block';
 
           localStorage.setItem('sessionToken', data.sessionToken);

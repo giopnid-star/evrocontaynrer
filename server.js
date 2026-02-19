@@ -107,7 +107,7 @@ function generateToken() {
 
 // POST: User Registration
 app.post('/api/register', async (req, res) => {
-  const { email, password, name } = req.body || {};
+  const { email, password, name, rememberMe } = req.body || {};
   if (!email || !password || !name) {
     return res.status(400).json({ error: 'Email, пароль и имя обязательны' });
   }
@@ -157,7 +157,9 @@ app.post('/api/register', async (req, res) => {
     }
 
     const sessionToken = generateToken();
-    const sessionExpires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    // 90 дней if remember me, otherwise 30 days
+    const sessionDays = rememberMe ? 90 : 30;
+    const sessionExpires = new Date(Date.now() + sessionDays * 24 * 60 * 60 * 1000);
     await client.query(
       'UPDATE users SET session_token = $1, session_expires = $2 WHERE id = $3',
       [sessionToken, sessionExpires, userId]
@@ -174,7 +176,7 @@ app.post('/api/register', async (req, res) => {
 
 // POST: User Login
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body || {};
+  const { email, password, rememberMe } = req.body || {};
   if (!email || !password) {
     return res.status(400).json({ error: 'Email и пароль обязательны' });
   }
@@ -193,7 +195,9 @@ app.post('/api/login', async (req, res) => {
     }
 
     const sessionToken = generateToken();
-    const sessionExpires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    // 90 дней if remember me, otherwise 30 days
+    const sessionDays = rememberMe ? 90 : 30;
+    const sessionExpires = new Date(Date.now() + sessionDays * 24 * 60 * 60 * 1000);
     await client.query(
       'UPDATE users SET session_token = $1, session_expires = $2, last_login = CURRENT_TIMESTAMP WHERE id = $3',
       [sessionToken, sessionExpires, user.id]
