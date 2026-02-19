@@ -1,38 +1,49 @@
-# ⚡ БЫСТРЫЙ ДЕПЛОЙ СКРИПТ
-# Использование: ./deploy.ps1 "Твое сообщение" или просто ./deploy.ps1
+﻿param([string]$message = "Update $(Get-Date -Format 'HH:mm')")
 
-param([string]$message = "Quick update $(Get-Date -Format 'HH:mm:ss')")
+Write-Host ""
+Write-Host "[DEPLOY] Starting quick deploy to Railway..." -ForegroundColor Cyan
 
-Write-Host "🚀 Начинаем деплой..." -ForegroundColor Cyan
+# Security check
+Write-Host "[1/4] Security check..." -ForegroundColor Yellow
+$excluded = @(".env", "auth.json", "credentials.json")
+foreach ($file in $excluded) {
+    if (Test-Path $file) {
+        Write-Host "[!] Found $file - excluding from commit" -ForegroundColor Red
+        git reset HEAD $file 2>$null | Out-Null
+    }
+}
+Write-Host "[OK] Secure" -ForegroundColor Green
 
-# Добавляем все файлы
-Write-Host "📦 Стейджим файлы..." -ForegroundColor Yellow
-git add -A
-
-# Проверяем есть ли что комитить
+# Stage files
+Write-Host "[2/4] Staging files..." -ForegroundColor Yellow
+git add -A | Out-Null
 $status = git status --porcelain
 if ([string]::IsNullOrEmpty($status)) {
-    Write-Host "✅ Нечего комитить (всё уже синхронизировано)" -ForegroundColor Green
+    Write-Host "[OK] Nothing to commit" -ForegroundColor Green
+    Write-Host ""
     exit 0
 }
+Write-Host "[OK] Files staged" -ForegroundColor Green
 
-# Создаем коммит
-Write-Host "💾 Создаем коммит: $message" -ForegroundColor Yellow
-git commit -m "$message"
-
+# Commit
+Write-Host "[3/4] Creating commit: $message" -ForegroundColor Yellow
+git commit -m "$message" | Out-Null
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "❌ Ошибка при создании коммита" -ForegroundColor Red
+    Write-Host "[ERROR] Commit failed" -ForegroundColor Red
     exit 1
 }
+Write-Host "[OK] Committed" -ForegroundColor Green
 
-# Пушим на GitHub
-Write-Host "⬆️  Пушим на GitHub..." -ForegroundColor Yellow
-git push -u origin main
-
+# Push
+Write-Host "[4/4] Pushing to GitHub..." -ForegroundColor Yellow
+git push -u origin main 2>&1 | Out-Null
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "✅ Успешно! Railway автоматически разворачивает..." -ForegroundColor Green
-    Write-Host "🌐 Сайт обновится через ~1-2 минуты" -ForegroundColor Cyan
+    Write-Host "[OK] Pushed successfully" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "[SUCCESS] Railway is deploying your changes..." -ForegroundColor Green
+    Write-Host "Live at: https://evrocontayner.kz" -ForegroundColor Cyan
+    Write-Host ""
 } else {
-    Write-Host "❌ Ошибка при пуше" -ForegroundColor Red
+    Write-Host "[ERROR] Push failed" -ForegroundColor Red
     exit 1
 }
