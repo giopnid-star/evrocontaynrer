@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Установка зависимостей (PostgreSQL не требует компиляции)
-RUN npm ci --production
+RUN npm ci --omit=dev
 
 # Копирование остальных файлов
 COPY . .

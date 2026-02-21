@@ -1,0 +1,8 @@
+﻿node_modules
+npm-debug.log*
+.git
+.gitignore
+.vscode
+.DS_Store
+*.log
+backups-server
