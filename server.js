@@ -508,6 +508,107 @@ app.get('/sitemap.xml', (req, res) => {
   res.send(xml);
 });
 
+// GET: Cities Sitemap
+app.get('/sitemap-cities.xml', (req, res) => {
+  const baseUrl = 'https://evrocontayner.kz';
+  const today = new Date().toISOString().split('T')[0];
+
+  const cities = [
+    { slug: 'almaty', name: 'Алматы' },
+    { slug: 'astana', name: 'Астана' },
+    { slug: 'shymkent', name: 'Шымкент' },
+    { slug: 'karaganda', name: 'Караганда' },
+    { slug: 'aktobe', name: 'Актобе' },
+    { slug: 'taraz', name: 'Тараз' },
+    { slug: 'pavlodar', name: 'Павлодар' },
+    { slug: 'ust-kamenogorsk', name: 'Усть-Каменогорск' },
+    { slug: 'semey', name: 'Семей' },
+    { slug: 'atyrau', name: 'Атырау' },
+    { slug: 'kostanay', name: 'Костанай' },
+    { slug: 'kyzylorda', name: 'Кызылорда' },
+    { slug: 'aktau', name: 'Актау' },
+    { slug: 'oral', name: 'Орал' },
+    { slug: 'turkistan', name: 'Туркестан' },
+    { slug: 'kokshetau', name: 'Кокшетау' },
+    { slug: 'taldykorgan', name: 'Талдыкорган' },
+    { slug: 'petropavl', name: 'Петропавловск' },
+    { slug: 'ekibastuz', name: 'Экибастуз' },
+    { slug: 'zhezkazgan', name: 'Жезказган' }
+  ];
+
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ';
+  xml += 'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
+
+  cities.forEach(city => {
+    xml += '  <url>\n';
+    xml += `    <loc>${baseUrl}/city/${city.slug}/</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>monthly</changefreq>\n`;
+    xml += `    <priority>0.7</priority>\n`;
+    xml += `    <xhtml:link rel="alternate" hreflang="ru-KZ" href="${baseUrl}/city/${city.slug}/"/>\n`;
+    xml += `    <xhtml:link rel="alternate" hreflang="kk-KZ" href="${baseUrl}/city/${city.slug}/"/>\n`;
+    xml += '  </url>\n';
+  });
+
+  xml += '</urlset>';
+
+  res.header('Content-Type', 'application/xml');
+  res.send(xml);
+});
+
+// GET: Images Sitemap
+app.get('/sitemap-images.xml', (req, res) => {
+  const baseUrl = 'https://evrocontayner.kz';
+  const today = new Date().toISOString().split('T')[0];
+
+  const imagePages = [
+    {
+      pageUrl: '/',
+      images: [
+        { url: '/images/images_previef/1.jpg', title: 'Киоск Evrocontayner - вид 1', caption: 'Производство киосков и контейнеров Evrocontayner' },
+        { url: '/images/images_previef/2.jpeg', title: 'Киоск Evrocontayner - вид 2', caption: 'Модульные киоски для бизнеса в Казахстане' },
+        { url: '/images/images_previef/3.jpg', title: 'Киоск Evrocontayner - вид 3', caption: 'Торговые павильоны под ключ' },
+        { url: '/images/images_previef/4.jpg', title: 'Киоск Evrocontayner - вид 4', caption: 'Контейнеры и киоски с доставкой по Казахстану' }
+      ]
+    },
+    {
+      pageUrl: '/gallery/',
+      images: [
+        { url: '/images/contayner/contayner1/photo_2026-02-13_00-11-36.jpg', title: '40ф контейнер кухня столовая', caption: 'Переоборудованный 40-футовый контейнер под кухню и столовую' },
+        { url: '/images/contayner/contayner2/photo_2026-02-13_00-07-41.jpg', title: '40ф контейнер раздевалка склад', caption: 'Контейнер под раздевалку и склад' },
+        { url: '/images/contayner/contayner3/photo_2026-02-13_00-15-05.jpg', title: '40ф контейнер жилой с санузлом', caption: 'Жилой контейнер с кухней и санитарным узлом' },
+        { url: '/images/contayner/contayner4/photo_2026-02-13_00-09-46.jpg', title: '20ф контейнер склад', caption: '20-футовый контейнер под склад' },
+        { url: '/images/kiosks/recycling-kiosk/photo_1_2026-02-13_00-15-45.jpg', title: 'Киоск вторсырья 4000х7000мм', caption: 'Специализированный киоск для приёма вторичных материалов' },
+        { url: '/images/kiosks/kiosk1/photo_2026-02-19_16-02-11.jpg', title: 'Киоск 3000x7000мм', caption: 'Торговый киоск с витражной зоной' }
+      ]
+    }
+  ];
+
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ';
+  xml += 'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n';
+
+  imagePages.forEach(page => {
+    xml += '  <url>\n';
+    xml += `    <loc>${baseUrl}${page.pageUrl}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    page.images.forEach(img => {
+      xml += '    <image:image>\n';
+      xml += `      <image:loc>${baseUrl}${img.url}</image:loc>\n`;
+      xml += `      <image:title>${img.title}</image:title>\n`;
+      xml += `      <image:caption>${img.caption}</image:caption>\n`;
+      xml += '    </image:image>\n';
+    });
+    xml += '  </url>\n';
+  });
+
+  xml += '</urlset>';
+
+  res.header('Content-Type', 'application/xml');
+  res.send(xml);
+});
+
 // Health check endpoint (MUST be before static files)
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', database: 'PostgreSQL', timestamp: new Date().toISOString() });
