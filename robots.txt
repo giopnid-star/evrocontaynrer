@@ -5,16 +5,13 @@ Disallow: /backups-server/
 Disallow: /login/
 Disallow: /register/
 Disallow: /api/
-Disallow: /*.pdf$
-Disallow: /*?*
-Disallow: /*.js$
-Disallow: /*.css$
+Disallow: /data/
 
-# Allow important paths
+# Allow static assets (JS/CSS needed for rendering)
 Allow: /static/
 Allow: /images/
 
-# Crawl delays (optional)
+# Crawl delay
 Crawl-delay: 1
 
 # Sitemaps
@@ -25,9 +22,22 @@ Sitemap: https://evrocontayner.kz/sitemap-images.xml
 # Google specific
 User-agent: Googlebot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /backups-server/
 Crawl-delay: 0
 
 # Yandex specific
 User-agent: YandexBot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /backups-server/
 Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
