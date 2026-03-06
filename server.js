@@ -614,8 +614,43 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', database: 'PostgreSQL', timestamp: new Date().toISOString() });
 });
 
+// Deployment version endpoint (useful to verify Railway serves latest commit)
+app.get('/version', (req, res) => {
+  res.json({
+    commit: process.env.RAILWAY_GIT_COMMIT_SHA || process.env.GITHUB_SHA || 'unknown',
+    deployedAt: new Date().toISOString(),
+    nodeEnv: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Prevent stale HTML pages after deploys
+app.use((req, res, next) => {
+  const ext = path.extname(req.path).toLowerCase();
+  const isHtmlRequest = req.path === '/' || ext === '.html' || ext === '';
+
+  if (isHtmlRequest) {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+  }
+
+  next();
+});
+
 // Serve static files from root directory (HTML, CSS, JS, images)
-app.use(express.static(__dirname, { index: 'index.html' }));
+app.use(express.static(__dirname, {
+  index: 'index.html',
+  etag: false,
+  lastModified: false,
+  maxAge: 0,
+  setHeaders: (res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store');
+  }
+}));
 
 app.listen(PORT, () => {
   console.log(`🚀 Mail & DB server listening on http://localhost:${PORT}`);
