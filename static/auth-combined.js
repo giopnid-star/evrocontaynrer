@@ -11,6 +11,9 @@
     // Don't create on index page (it has its own styled auth buttons)
     if(document.body.classList.contains('index')) return;
     
+    // Don't create on index page (it has its own styled auth buttons)
+    if(document.body.classList.contains('index')) return;
+    
     // Check if already initialized
     if(container.querySelector('.auth-combined')) return;
     
