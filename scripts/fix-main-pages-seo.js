@@ -27,7 +27,7 @@ const pages = [
   {
     file: 'contact/index.html',
     title: 'Контакты Evrocontayner — связаться с нами',
-    description: 'Свяжитесь с Evrocontayner: телефон +7 778 680 4030, WhatsApp, email. Производство и продажа киосков, павильонов и контейнеров по всему Казахстану.',
+    description: 'Свяжитесь с Evrocontayner: телефон +7 777 408 99 28, WhatsApp, email. Производство и продажа киосков, павильонов и контейнеров по всему Казахстану.',
     canonical: 'https://evrocontayner.kz/contact/',
     breadcrumbs: [
       { pos: 1, name: 'Главная', url: 'https://evrocontayner.kz/' },

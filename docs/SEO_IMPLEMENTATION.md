@@ -22,7 +22,7 @@
   ],
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+7-701-123-4567",
+    "telephone": "+7 777 408 99 28",
     "contactType": "Customer Service",
     "areaServed": "KZ"
   },
@@ -71,7 +71,7 @@
     "latitude": "43.2380",
     "longitude": "76.9386"
   },
-  "telephone": "+7-701-123-4567",
+  "telephone": "+7 777 408 99 28",
   "url": "https://evrocontayner.kz/city/almaty/",
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",

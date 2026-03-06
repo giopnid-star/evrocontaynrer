@@ -488,7 +488,7 @@ img[loading="lazy"].loaded {
     scroll-snap-align: start;
   }
   }
-}
+
 
 /* ===== Улучшенные стили для city-coverage секции ===== */
 .section-header {
@@ -3194,6 +3194,15 @@ html.dark-mode .container-block {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+}
+
+#projects-itr.projects-content.active {
+  grid-template-columns: minmax(280px, 420px);
+  justify-content: start;
+}
+
+#projects-itr .project-card {
+  width: 100%;
 }
 
 @keyframes fadeInProjects {
@@ -6618,6 +6627,11 @@ a:not(.city-card):not(.query-tag):not(.faq-question):hover::after {
   color: #edf4ff;
 }
 
+.index .trust-cases-section,
+.index .quick-quiz-section {
+  margin-left: 80px;
+}
+
 .index .quick-quiz-head {
   max-width: 800px;
   margin-bottom: 18px;
@@ -6819,6 +6833,11 @@ a:not(.city-card):not(.query-tag):not(.faq-question):hover::after {
 }
 
 @media (max-width: 1080px) {
+  .index .trust-cases-section,
+  .index .quick-quiz-section {
+    margin-left: 70px;
+  }
+
   .index .trust-cases-grid {
     grid-template-columns: 1fr;
   }
@@ -6829,6 +6848,11 @@ a:not(.city-card):not(.query-tag):not(.faq-question):hover::after {
 }
 
 @media (max-width: 768px) {
+  .index .trust-cases-section,
+  .index .quick-quiz-section {
+    margin-left: 0;
+  }
+
   .index .auth-split {
     display: inline-flex !important;
     font-size: 0.74rem;

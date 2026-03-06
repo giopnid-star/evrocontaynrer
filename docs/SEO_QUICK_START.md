@@ -73,7 +73,7 @@
   "logo": "https://evrocontayner.kz/images/logo.png",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+7-701-123-4567",
+    "telephone": "+7 777 408 99 28",
     "contactType": "Customer Service"
   }
 }

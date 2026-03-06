@@ -107,7 +107,7 @@
       'Прошу подготовить точное коммерческое предложение.'
     ].join('\n');
 
-    const waHref = `https://wa.me/77072534022?text=${encodeURIComponent(message)}`;
+    const waHref = `https://wa.me/77774089928?text=${encodeURIComponent(message)}`;
 
     resultEl.innerHTML = `
       <h3>Ориентир по проекту: ${estimate.rangeText}</h3>

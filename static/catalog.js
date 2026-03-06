@@ -115,8 +115,131 @@ document.querySelectorAll('.draggable').forEach(item => {
     item.addEventListener('dragend', e => { dragItem = null; });
 });
 
+function shuffleArray(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+function encodeFileName(fileName) {
+    return encodeURIComponent(fileName).replace(/%2F/g, '/');
+}
+
+function buildPath(basePath, fileName) {
+    return `${basePath}/${encodeFileName(fileName)}`;
+}
+
+function initGalleryRandomizer(galleryElement) {
+    if (!galleryElement) return;
+
+    const pools = {
+        containers: [
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-36.jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-36 (2).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-36 (3).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-36 (4).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-36 (5).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-36 (6).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-37.jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-37 (2).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-37 (3).jpg'),
+            buildPath('/images/contayner/contayner1', 'photo_2026-02-13_00-11-37 (4).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-41.jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-41 (2).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-41 (3).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-42.jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-42 (2).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-42 (3).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-42 (4).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-42 (5).jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-43.jpg'),
+            buildPath('/images/contayner/contayner2', 'photo_2026-02-13_00-07-43 (2).jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-02.jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-02 (2).jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-03.jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-03 (2).jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-04.jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-05.jpg'),
+            buildPath('/images/contayner/contayner3', 'photo_2026-02-13_00-15-05 (2).jpg'),
+            buildPath('/images/contayner/contayner4', 'photo_2026-02-13_00-09-46.jpg'),
+            buildPath('/images/contayner/contayner4', 'photo_2026-02-13_00-09-46 (2).jpg'),
+            buildPath('/images/contayner/contayner4', 'photo_2026-02-13_00-09-46 (3).jpg'),
+            buildPath('/images/contayner/contayner4', 'photo_2026-02-13_00-09-46 (4).jpg')
+        ],
+        kiosks: [
+            buildPath('/images/kiosks/kiosk-recycling', 'photo_2026-02-19_15-50-53.jpg'),
+            buildPath('/images/kiosks/kiosk-recycling', 'photo_2026-02-19_15-50-55.jpg'),
+            buildPath('/images/kiosks/kiosk-recycling', 'photo_2026-02-19_15-50-57.jpg'),
+            buildPath('/images/kiosks/kiosk-recycling', 'photo_2026-02-19_15-50-58.jpg'),
+            buildPath('/images/kiosks/kiosk1', 'photo_2026-02-19_16-02-11.jpg'),
+            buildPath('/images/kiosks/kiosk1', 'photo_2026-02-19_16-02-20.jpg'),
+            buildPath('/images/kiosks/kiosk1', 'photo_2026-02-19_16-02-24.jpg'),
+            buildPath('/images/kiosks/kiosk2', 'photo_2026-02-13_00-23-41.jpg'),
+            buildPath('/images/kiosks/kiosk2', 'photo_2026-02-13_00-23-41 (2).jpg'),
+            buildPath('/images/kiosks/kiosk2', 'photo_2026-02-13_00-23-41 (3).jpg'),
+            buildPath('/images/kiosks/kiosk2', 'photo_2026-02-13_00-23-41 (4).jpg'),
+            buildPath('/images/kiosks/recycling-kiosk', 'photo_1_2026-02-13_00-15-45.jpg'),
+            buildPath('/images/kiosks/recycling-kiosk', 'photo_2_2026-02-13_00-15-45.jpg'),
+            buildPath('/images/kiosks/recycling-kiosk', 'photo_3_2026-02-13_00-15-45.jpg'),
+            buildPath('/images/kiosks/recycling-kiosk', 'photo_4_2026-02-13_00-15-45.jpg')
+        ],
+        itr: [
+            buildPath('/images/itr', 'WhatsApp Image 2026-03-06 at 23.12.17.jpeg'),
+            buildPath('/images/itr', 'WhatsApp Image 2026-03-06 at 23.12.17 (1).jpeg'),
+            buildPath('/images/itr', 'WhatsApp Image 2026-03-06 at 23.12.26.jpeg'),
+            buildPath('/images/itr', 'WhatsApp Image 2026-03-06 at 23.12.26 (1).jpeg'),
+            buildPath('/images/itr', 'WhatsApp Image 2026-03-06 at 23.12.27.jpeg'),
+            buildPath('/images/itr', 'WhatsApp Image 2026-03-06 at 23.12.27 (1).jpeg')
+        ]
+    };
+
+    const labels = {
+        containers: 'Евро-контейнер',
+        kiosks: 'Модульный киоск',
+        itr: 'ИТР'
+    };
+
+    const groupedItems = {
+        containers: [],
+        kiosks: [],
+        itr: []
+    };
+
+    galleryElement.querySelectorAll('.gallery-item').forEach(item => {
+        const type = item.dataset.type;
+        if (groupedItems[type]) {
+            groupedItems[type].push(item);
+        }
+    });
+
+    Object.keys(groupedItems).forEach(type => {
+        const items = groupedItems[type];
+        const pool = pools[type];
+        if (!items.length || !pool || !pool.length) return;
+
+        const shuffled = shuffleArray(pool);
+        items.forEach((item, index) => {
+            const img = item.querySelector('img');
+            const title = item.querySelector('h3');
+            if (!img) return;
+
+            const src = shuffled[index % shuffled.length];
+            img.src = src;
+            img.alt = `${labels[type] || 'Фото'} ${index + 1}`;
+            if (title) {
+                title.textContent = `${labels[type] || 'Фото'} ${index + 1}`;
+            }
+        });
+    });
+}
+
 const gallery = document.getElementById('gallery-container');
 if (gallery) {
+    initGalleryRandomizer(gallery);
+
     gallery.addEventListener('dragover', e => e.preventDefault());
     gallery.addEventListener('drop', e => {
         e.preventDefault();

@@ -96,7 +96,7 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=ваш_email@gmail.com
 SMTP_PASS=пароль_приложения
-TO_EMAIL=tigran.amarhanyan@gmail.com
+TO_EMAIL=amarhanyan83@gmail.com
 PORT=3000
 NODE_ENV=production
 ```

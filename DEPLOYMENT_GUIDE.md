@@ -45,7 +45,7 @@ git push -u origin main
    В панели Railway → Settings → Variables добавьте:
    ```
    PORT=5501
-   TO_EMAIL=tigran.amarhanyan@gmail.com
+   TO_EMAIL=amarhanyan83@gmail.com
    SMTP_HOST=ваш_smtp_хост
    SMTP_PORT=ваш_smtp_порт
    SMTP_USER=ваш_smtp_пользователь

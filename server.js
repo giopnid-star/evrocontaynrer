@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 5501;
-const TO_EMAIL = process.env.TO_EMAIL || 'tigran.amarhanyan@gmail.com';
+const TO_EMAIL = process.env.TO_EMAIL || 'amarhanyan83@gmail.com';
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = process.env.SMTP_PORT;
 const SMTP_USER = process.env.SMTP_USER;

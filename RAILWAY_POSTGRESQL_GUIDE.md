@@ -80,9 +80,9 @@ Railway автоматически обнаружит Node.js проект и н
 |------------|----------|
 | `SMTP_HOST` | `smtp.gmail.com` |
 | `SMTP_PORT` | `587` |
-| `SMTP_USER` | `tigran.amarhanyan@gmail.com` |
+| `SMTP_USER` | `amarhanyan83@gmail.com` |
 | `SMTP_PASS` | `ваш_gmail_app_password` |
-| `TO_EMAIL` | `tigran.amarhanyan@gmail.com` |
+| `TO_EMAIL` | `amarhanyan83@gmail.com` |
 | `NODE_ENV` | `production` |
 | `PORT` | `5501` |
 
